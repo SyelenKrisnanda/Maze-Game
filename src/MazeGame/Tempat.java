@@ -58,23 +58,25 @@ public class Tempat {
     }
 
     public void simpanFileKonfigurasi(File file) {
-
-        FileOutputStream fos = null;// buat objek stream yaitu fos
         try {
-            fos = new FileOutputStream(file, false);
-            fos.write(isi.add(sel));
+            FileOutputStream fos = new FileOutputStream(file);
+            String a = "";
+            char b = 0;
+            for (int i = 0; i < isi.size(); i++) {
+                a += isi.get(i).getNilai();
+            }
+            fos.write(a.getBytes());
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            try {
-                fos.close();
-            } catch (IOException ex) {
-                Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (IOException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         }
-        /**
-         * @return the lebar
-         */
+    }
+
+    /**
+     * @return the lebar
+     */
     public int getLebar() {
         return lebar;
     }
