@@ -23,6 +23,8 @@ public class Tempat {
     private int lebar;
     private int tinggi;
     private ArrayList<Sel> isi = new ArrayList<>();
+    public static int batasKanan;
+    public static int batasBawah;
 
     public Tempat() {
     }
@@ -50,11 +52,47 @@ public class Tempat {
                     lebar++;
                 }
             }
+            for (int i = 0; i < HasilBaca.length(); i++) {
+                Sel sel = new Sel();
+                sel.setNilai(HasilBaca.charAt(i));
+                sel.setPosisiX(baris);
+                sel.setPosisiY(i);
+                isi.add(sel);
+            }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void bacaFile1(File file) {
+        try {
+            int dataInt = 0;
+            FileInputStream fis = new FileInputStream(file);
+            int baris = 0;
+            int kolom = 0;
+            while ((dataInt = fis.read()) != -1) {
+                if ((char) dataInt == '\r') {
+                } else {
+                    Sel sel = new Sel();
+                    sel.setNilai((char) dataInt);
+                    sel.setPosisiY(baris);
+                    sel.setPosisiX(kolom);
+                    kolom++;
+                    isi.add(sel);
+                }
+                if ((char) dataInt == '\n') {
+                    kolom = 0;
+                    baris++;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public void simpanFileKonfigurasi(File file) {
@@ -71,6 +109,15 @@ public class Tempat {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void pindahKanan() {
+        for (int i = 0; i < isi.size(); i++) {
+            if (isi.get(i).getNilai() == '@'
+                    && isi.get(i).getNilai() != '#') {
+                isi.get(i).geserKanan();
+            }
         }
     }
 
@@ -116,4 +163,30 @@ public class Tempat {
         this.isi = isi;
     }
 
+    public Sel CariPemain() {
+        for (int i = 0; i < isi.size(); i++) {
+            if (isi.get(i).isPemain()) {
+                return isi.get(i);
+            }
+        }
+        return null;
+    }
+
+    public static int getBatasKanan() {
+        return batasKanan;
+    }
+
+    public static void setBatasKanan(int batasKanan) {
+        Tempat.batasKanan = batasKanan;
+    }
+
+    public static int getBatasBawah() {
+        return batasBawah;
+    }
+
+    public static void setBatasBawah(int batasBawah) {
+        Tempat.batasBawah = batasBawah;
+    }
+    
+    
 }
