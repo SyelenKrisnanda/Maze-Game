@@ -5,15 +5,21 @@
  */
 package MazeGame;
 
+import java.io.Serializable;
+
 /**
  *
  * @author 175314080_175314103_MazeGame
  */
-public class Sel {
+public class Sel implements Serializable {
 
     private char nilai;
     private int posisiX;
     private int posisiY;
+    private int baris;
+    private int kolom;
+    private int lebar;
+    private int tinggi;
 
     public Sel() {
     }
@@ -64,4 +70,60 @@ public class Sel {
     public boolean isHambatan() {
         return nilai == '#';
     }
+
+    public boolean isBatasKanan() {
+        if (kolom * lebar + lebar < Tempat.batasKanan) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void geserKanan() {
+        if (isBatasKanan() == false) {
+            kolom++;
+        }
+    }
+
+    public boolean isBatasAtas() {
+        return false;
+    }
+
+    public boolean isBatasBawah() {
+        return false;
+    }
+
+    public int getBaris() {
+        return baris;
+    }
+
+    public void setBaris(int baris) {
+        this.baris = baris;
+    }
+
+    public int getKolom() {
+        return kolom;
+    }
+
+    public void setKolom(int kolom) {
+        this.kolom = kolom;
+    }
+
+    public int getLebar() {
+        return lebar;
+    }
+
+    public void setLebar(int lebar) {
+        this.lebar = lebar;
+    }
+
+    public int getTinggi() {
+        return tinggi;
+    }
+
+    public void setTinggi(int tinggi) {
+        this.tinggi = tinggi;
+    }
+    
+    
 }
