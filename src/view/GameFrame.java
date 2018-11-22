@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -21,6 +22,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import model.Sel;
+import model.Tempat;
 
 /**
  *
@@ -44,19 +46,22 @@ public class GameFrame extends JFrame {
 
     public GameFrame(String title) {
         this.setTitle(title);
+        this.setSize(800, 500);
+        this.setLayout(new BorderLayout());
         this.init();
     }
 
     public GameFrame(String title, TempatPanel tempatPanel) {
         setTitle(title);
+        this.setSize(800, 500);
+        this.setLayout(new BorderLayout());
         this.tempatPanel = tempatPanel;
         this.init();
+
     }
 
     public void init() {
         // set ukuran dan layout
-        this.setSize(800, 500);
-        this.setLayout(new BorderLayout());
 
         // set menu Bar
         menuBar = new JMenuBar();
@@ -77,6 +82,22 @@ public class GameFrame extends JFrame {
         }
         );
 
+        bacaKonfigurasiMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jf = new JFileChooser();
+                int returnVal = jf.showOpenDialog(null);
+                Tempat tempat = new Tempat();
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    tempat.bacaKonfigurasi(jf.getSelectedFile());
+
+                }
+                Tempat.batasKanan = 500;
+                Tempat.batasBawah = 500;
+                tempatPanel = new TempatPanel(tempat);
+                init();
+            }
+        });
         // panel selatan
         JPanel southPanel = new JPanel();
         southPanel.setLayout(new FlowLayout());
