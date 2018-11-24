@@ -46,6 +46,7 @@ public class GameFrame extends JFrame {
 
     public GameFrame(String title) {
         this.setTitle(title);
+        // set ukuran dan layout
         this.setSize(800, 500);
         this.setLayout(new BorderLayout());
         this.init();
@@ -53,6 +54,7 @@ public class GameFrame extends JFrame {
 
     public GameFrame(String title, TempatPanel tempatPanel) {
         setTitle(title);
+        // set ukuran dan layout
         this.setSize(800, 500);
         this.setLayout(new BorderLayout());
         this.tempatPanel = tempatPanel;
@@ -61,7 +63,7 @@ public class GameFrame extends JFrame {
     }
 
     public void init() {
-        // set ukuran dan layout
+        
 
         // set menu Bar
         menuBar = new JMenuBar();
