@@ -6,6 +6,7 @@
 package model;
 
 import java.awt.Color;
+import java.awt.Image;
 
 /**
  *
@@ -13,11 +14,11 @@ import java.awt.Color;
  */
 public class Sel {
 
-    private int baris=0;
-    private int kolom=0;
-    private int lebar=25;
-    private int tinggi=25;
-
+    private int baris = 0;
+    private int kolom = 0;
+    private int lebar = 25;
+    private int tinggi = 25;
+    private Image image;
     private char nilai;
 
     private Color warna;
@@ -29,6 +30,11 @@ public class Sel {
         this.baris = baris;
         this.kolom = kolom;
         this.nilai = nilai;
+    }
+
+    public Sel(int baris, int kolom) {
+        this.baris = baris;
+        this.kolom = kolom;
     }
 
     public Sel(int baris, int kolom, char nilai, Color warna) {
@@ -47,11 +53,62 @@ public class Sel {
         this.warna = warna;
     }
 
-    /**
-     * Fungsi mengecek sel ada di batas kiri
-     *
-     * @return
-     */
+    public int getBaris() {
+        return baris;
+    }
+
+    public void setBaris(int baris) {
+        this.baris = baris;
+    }
+
+    public int getKolom() {
+        return kolom;
+    }
+
+    public void setKolom(int kolom) {
+        this.kolom = kolom;
+    }
+
+    public char getNilai() {
+        return nilai;
+    }
+
+    public void setNilai(char nilai) {
+        this.nilai = nilai;
+    }
+
+    public Color getWarna() {
+        return warna;
+    }
+
+    public void setWarna(Color warna) {
+        this.warna = warna;
+    }
+
+    public int getLebar() {
+        return lebar;
+    }
+
+    public void setLebar(int lebar) {
+        this.lebar = lebar;
+    }
+
+    public int getTinggi() {
+        return tinggi;
+    }
+
+    public void setTinggi(int tinggi) {
+        this.tinggi = tinggi;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     public boolean isBatasKiri() {
         if (kolom * lebar <= 0) {
             return true;
@@ -61,11 +118,6 @@ public class Sel {
 
     }
 
-    /**
-     * Fungsi ceking sel ada di batas kanan
-     *
-     * @return
-     */
     public boolean isBatasKanan() {
         if (kolom * lebar + lebar < Tempat.batasKanan) {
             return false;
@@ -74,138 +126,36 @@ public class Sel {
         }
     }
 
-    /**
-     * Fungsi untuk menggeser sel ke kanan
-     */
     public void geserKanan() {
         if (isBatasKanan() == false) {
             kolom++;
-        } else
-        {
+        } else {
             kolom--;
         }
     }
 
-    /**
-     * Fungsi untuk menggeser sel ke kanan
-     */
     public void geserKiri() {
         if (isBatasKiri() == false) {
             kolom--;
-        } else{
+        } else {
             kolom++;
         }
     }
 
-    /**
-     * Fungsi untuk mengecek sel ada di batas atas
-     */
     public boolean isBatasAtas() {
         return false;
     }
 
-    /**
-     * Fungsi untuk mengecek sel ada di batas bawah
-     */
     public boolean isBatasBawah() {
         return false;
     }
 
-    /**
-     * Fungsi untuk geser atas
-     */
-    public void geserAtas(){
-        
-    }
-    
-    /**
-     * Fungsi untuk geser bawah
-     */
-    public void geserBawah(){
-        
-    }
-    /**
-     * @return the baris
-     */
-    public int getBaris() {
-        return baris;
+    public void geserAtas() {
+
     }
 
-    /**
-     * @param baris the baris to set
-     */
-    public void setBaris(int baris) {
-        this.baris = baris;
-    }
+    public void geserBawah() {
 
-    /**
-     * @return the kolom
-     */
-    public int getKolom() {
-        return kolom;
-    }
-
-    /**
-     * @param kolom the kolom to set
-     */
-    public void setKolom(int kolom) {
-        this.kolom = kolom;
-    }
-
-    /**
-     * @return the nilai
-     */
-    public char getNilai() {
-        return nilai;
-    }
-
-    /**
-     * @param nilai the nilai to set
-     */
-    public void setNilai(char nilai) {
-        this.nilai = nilai;
-    }
-
-    /**
-     * @return the warna
-     */
-    public Color getWarna() {
-        return warna;
-    }
-
-    /**
-     * @param warna the warna to set
-     */
-    public void setWarna(Color warna) {
-        this.warna = warna;
-    }
-
-    /**
-     * @return the lebar
-     */
-    public int getLebar() {
-        return lebar;
-    }
-
-    /**
-     * @param lebar the lebar to set
-     */
-    public void setLebar(int lebar) {
-        this.lebar = lebar;
-    }
-
-    /**
-     * @return the tinggi
-     */
-    public int getTinggi() {
-        return tinggi;
-    }
-
-    /**
-     * @param tinggi the tinggi to set
-     */
-    public void setTinggi(int tinggi) {
-        this.tinggi = tinggi;
     }
 
 }

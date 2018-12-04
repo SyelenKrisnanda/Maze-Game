@@ -6,40 +6,44 @@
 package model;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author user only
  */
 public class Tempat {
+
     private int tinggi; // tinggi tempat Game
     private int lebar;  // lebar tempat Game
     private ArrayList<Sel> daftarSel; // daftar sel
 
     private String isi; // isi file konfigurasi
-    
+
     public static int batasKanan;
     public static int batasBawah;
-    
+
     public Tempat() {
         daftarSel = new ArrayList<>();
     }
-    
-    
+
     /**
-     * Fungsi pembaca file konfigurasi.
-     * Hasil pembacaan file akan disimpan di atribut 'isi' dan juga di atribut daftarSel
-     * @param file 
+     * Fungsi pembaca file konfigurasi. Hasil pembacaan file akan disimpan di
+     * atribut 'isi' dan juga di atribut daftarSel
+     *
+     * @param file
      */
-    public void bacaKonfigurasi(File file){
-         try {
+    public void bacaKonfigurasi(File file) {
+        try {
             FileInputStream fis = new FileInputStream(file);
             String hasilBaca = "";
             int dataInt;
@@ -49,70 +53,68 @@ public class Tempat {
             while ((dataInt = fis.read()) != -1) {
                 if ((char) dataInt != '\n') {
                     switch ((char) dataInt) {
-                        case '#':
-                            {
-                                hasilBaca = hasilBaca + (char) dataInt;
-                                Sel sel = new Sel();
-                                sel.setTinggi(50);
-                                sel.setLebar(50);
-                                this.setTinggi(50);
-                                this.setLebar(50);
-                                sel.setNilai((char) dataInt);
-                                sel.setWarna(Color.RED);
-                                sel.setBaris(baris);
-                                sel.setKolom(kolom);
-                                this.tambahSel(sel);
-                                kolom++;
-                                break;
-                            }
-                        case '.':
-                            {
-                                hasilBaca = hasilBaca + (char) dataInt;
-                                Sel sel = new Sel();
-                                sel.setTinggi(50);
-                                sel.setLebar(50);
-                                this.setTinggi(50);
-                                this.setLebar(50);
-                                sel.setNilai((char) dataInt);
-                                sel.setWarna(Color.WHITE);
-                                sel.setBaris(baris);
-                                sel.setKolom(kolom);
-                                this.tambahSel(sel);
-                                kolom++;
-                                break;
-                            }
-                        case '@':
-                            {
-                                hasilBaca = hasilBaca + (char) dataInt;
-                                Sel sel = new Sel();
-                                sel.setTinggi(50);
-                                sel.setLebar(50);
-                                this.setTinggi(50);
-                                this.setLebar(50);
-                                sel.setNilai((char) dataInt);
-                                sel.setWarna(Color.BLUE);
-                                sel.setBaris(baris);
-                                sel.setKolom(kolom);
-                                this.tambahSel(sel);
-                                kolom++;
-                                break;
-                            }
-                        case 'o':
-                            {
-                                hasilBaca = hasilBaca + (char) dataInt;
-                                Sel sel = new Sel();
-                                sel.setTinggi(50);
-                                sel.setLebar(50);
-                                this.setTinggi(50);
-                                this.setLebar(50);
-                                sel.setNilai((char) dataInt);
-                                sel.setWarna(Color.PINK);
-                                sel.setBaris(baris);
-                                sel.setKolom(kolom);
-                                this.tambahSel(sel);
-                                kolom++;
-                                break;
-                            }
+                        case '#': {
+                            hasilBaca = hasilBaca + (char) dataInt;
+                            Sel sel = new Sel();
+                            
+                            sel.setTinggi(50);
+                            sel.setLebar(50);
+                            this.setTinggi(50);
+                            this.setLebar(50);
+                            sel.setNilai((char) dataInt);
+                            sel.setWarna(Color.RED);
+                            sel.setBaris(baris);
+                            sel.setKolom(kolom);
+                            this.tambahSel(sel);
+                            kolom++;
+                            break;
+                        }
+                        case '.': {
+                            hasilBaca = hasilBaca + (char) dataInt;
+                            Sel sel = new Sel();
+                            sel.setTinggi(50);
+                            sel.setLebar(50);
+                            this.setTinggi(50);
+                            this.setLebar(50);
+                            sel.setNilai((char) dataInt);
+                            sel.setWarna(Color.WHITE);
+                            sel.setBaris(baris);
+                            sel.setKolom(kolom);
+                            this.tambahSel(sel);
+                            kolom++;
+                            break;
+                        }
+                        case '@': {
+                            hasilBaca = hasilBaca + (char) dataInt;
+                            Sel sel = new Sel();
+                              
+                            sel.setTinggi(50);
+                            sel.setLebar(50);
+                            this.setTinggi(50);
+                            this.setLebar(50);
+                            sel.setNilai((char) dataInt);
+                            sel.setWarna(Color.BLUE);
+                            sel.setBaris(baris);
+                            sel.setKolom(kolom);
+                            this.tambahSel(sel);
+                            kolom++;
+                            break;
+                        }
+                        case 'o': {
+                            hasilBaca = hasilBaca + (char) dataInt;
+                            Sel sel = new Sel();
+                            sel.setTinggi(50);
+                            sel.setLebar(50);
+                            this.setTinggi(50);
+                            this.setLebar(50);
+                            sel.setNilai((char) dataInt);
+                            sel.setWarna(Color.PINK);
+                            sel.setBaris(baris);
+                            sel.setKolom(kolom);
+                            this.tambahSel(sel);
+                            kolom++;
+                            break;
+                        }
                         default:
                             break;
                     }
@@ -122,32 +124,34 @@ public class Tempat {
                     hasilBaca = hasilBaca + (char) dataInt;
                 }
             }
-            
+
             this.setIsi(hasilBaca);
-            
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Fungsi penambah daftar sel.
-     * @param sel 
+     *
+     * @param sel
      */
-    public void tambahSel(Sel sel){
+    public void tambahSel(Sel sel) {
         daftarSel.add(sel);
     }
 
     /**
-     * Fungsi hapus sel.
-     * Sel yang paling akhir diremove dari daftar sel.
+     * Fungsi hapus sel. Sel yang paling akhir diremove dari daftar sel.
      */
-    public void hapusSel(){
-        if(!daftarSel.isEmpty()){
+    public void hapusSel() {
+        if (!daftarSel.isEmpty()) {
             daftarSel.remove(0);
         }
     }
+
     /**
      * @return the tinggi
      */
@@ -204,3 +208,4 @@ public class Tempat {
         this.isi = isi;
     }
 }
+

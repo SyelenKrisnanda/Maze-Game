@@ -43,11 +43,12 @@ public class TempatPanel extends JPanel {
         if (tempat != null) {
             for (int i = 0; i < tempat.getDaftarSel().size(); i++) {
                 Sel sel = tempat.getDaftarSel().get(i);
-                g.setColor(sel.getWarna());
-                g.fillOval(sel.getKolom()*sel.getLebar(),
-                        sel.getBaris()*sel.getTinggi(),
-                        sel.getLebar(),
-                        sel.getTinggi());
+//                g.setColor(sel.getWarna());
+//                g.fillOval(sel.getKolom()*sel.getLebar(),
+//                        sel.getBaris()*sel.getTinggi(),
+//                        sel.getLebar(),
+//                        sel.getTinggi());
+                g.drawImage(sel.getImage(), sel.getBaris(), sel.getKolom(), this);
             }
         }
     }
