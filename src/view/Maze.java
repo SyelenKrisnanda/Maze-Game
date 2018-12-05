@@ -123,7 +123,7 @@ public class Maze extends javax.swing.JFrame {
             peta = new Tempat(file);
             selPanel.add(peta);
             peta.setSize(peta.getLebar(), peta.getTinggi());
-            //setelah diset panel pixel, kita letakkan posisi peta sekoban
+            //setelah diset panel sel, kita letakkan posisi peta Mazegame
             int lebar = selPanel.getWidth();
             int tinggi = selPanel.getHeight();
             //mendapatkan titik koordinat x,y
