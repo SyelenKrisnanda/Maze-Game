@@ -6,6 +6,7 @@
 package model;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,24 +17,32 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 /**
  *
  * @author user only
  */
-public class Tempat {
+public class Tempat extends JPanel {
 
-    private int tinggi; // tinggi tempat Game
-    private int lebar;  // lebar tempat Game
+    private int tinggi = 0; // tinggi tempat Game
+    private int lebar = 0;  // lebar tempat Game
     private ArrayList<Sel> daftarSel; // daftar sel
-
+    private ArrayList wall = new ArrayList();//menyimpan data tembok
+    private ArrayList finish = new ArrayList();//menyimpan data gawang
+    private ArrayList<Sel> map = new ArrayList();//menyimpan data tembok,gawang,bola,soko
     private String isi; // isi file konfigurasi
-
+    private int jarak = 20;//untuk menentukan besarkan pixel/jarak space gambar didalam panel.
+    private Player player;
     public static int batasKanan;
     public static int batasBawah;
 
     public Tempat() {
         daftarSel = new ArrayList<>();
+    }
+
+    public Tempat(File file) {
+        bacaKonfigurasi(file);
     }
 
     /**
@@ -46,83 +55,38 @@ public class Tempat {
         try {
             FileInputStream fis = new FileInputStream(file);
             String hasilBaca = "";
-            int dataInt;
-            int baris = 0;
-            int kolom = 0;
+            int data;
+            int posisiY = 0;
+            int posisiX = 0;
+            Wall a;
+            Finish b;
 
-            while ((dataInt = fis.read()) != -1) {
-                if ((char) dataInt != '\n') {
-                    switch ((char) dataInt) {
-                        case '#': {
-                            hasilBaca = hasilBaca + (char) dataInt;
-                            Sel sel = new Sel();
-                            
-                            sel.setTinggi(50);
-                            sel.setLebar(50);
-                            this.setTinggi(50);
-                            this.setLebar(50);
-                            sel.setNilai((char) dataInt);
-                            sel.setWarna(Color.RED);
-                            sel.setBaris(baris);
-                            sel.setKolom(kolom);
-                            this.tambahSel(sel);
-                            kolom++;
-                            break;
-                        }
-                        case '.': {
-                            hasilBaca = hasilBaca + (char) dataInt;
-                            Sel sel = new Sel();
-                            sel.setTinggi(50);
-                            sel.setLebar(50);
-                            this.setTinggi(50);
-                            this.setLebar(50);
-                            sel.setNilai((char) dataInt);
-                            sel.setWarna(Color.WHITE);
-                            sel.setBaris(baris);
-                            sel.setKolom(kolom);
-                            this.tambahSel(sel);
-                            kolom++;
-                            break;
-                        }
-                        case '@': {
-                            hasilBaca = hasilBaca + (char) dataInt;
-                            Sel sel = new Sel();
-                              
-                            sel.setTinggi(50);
-                            sel.setLebar(50);
-                            this.setTinggi(50);
-                            this.setLebar(50);
-                            sel.setNilai((char) dataInt);
-                            sel.setWarna(Color.BLUE);
-                            sel.setBaris(baris);
-                            sel.setKolom(kolom);
-                            this.tambahSel(sel);
-                            kolom++;
-                            break;
-                        }
-                        case 'o': {
-                            hasilBaca = hasilBaca + (char) dataInt;
-                            Sel sel = new Sel();
-                            sel.setTinggi(50);
-                            sel.setLebar(50);
-                            this.setTinggi(50);
-                            this.setLebar(50);
-                            sel.setNilai((char) dataInt);
-                            sel.setWarna(Color.PINK);
-                            sel.setBaris(baris);
-                            sel.setKolom(kolom);
-                            this.tambahSel(sel);
-                            kolom++;
-                            break;
-                        }
-                        default:
-                            break;
-                    }
-                } else {
-                    baris++;
-                    kolom = 0;
-                    hasilBaca = hasilBaca + (char) dataInt;
+            while ((data = fis.read()) != -1) {
+                char item = (char) data;
+                if (item == '\n') {
+                    hasilBaca += (char) data;
+                    posisiY += jarak;
+                    lebar = posisiX;
+                    posisiX = 0;
+                } else if (item == '#') {
+                    hasilBaca += (char) data;
+                    a = new Wall(posisiX, posisiY);
+                    wall.add(a);
+                    posisiX += jarak;
+                } else if (item == 'o') {
+                    hasilBaca += (char) data;
+                    b = new Finish(posisiX, posisiY);
+                    finish.add(b);
+                    posisiX += jarak;
+                } else if (item == '@') {
+                    hasilBaca += (char) data;
+                    player = new Player(posisiX, posisiY);
+                    posisiX += jarak;
+                } else if (item == '.') {
+                    hasilBaca += (char) data;
+                    posisiX += jarak;
                 }
+                tinggi = posisiY;
             }
 
             this.setIsi(hasilBaca);
@@ -134,78 +98,91 @@ public class Tempat {
         }
     }
 
-    /**
-     * Fungsi penambah daftar sel.
-     *
-     * @param sel
-     */
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);	   // Hapus background
+        // Tempat Gambar:
+        g.setColor(new Color(255, 255, 255));//set panel warna putih
+        g.fillRect(0, 0, this.getLebar(), this.getTinggi());// set tinggi lebar sesuai konfigurasi
+        map.addAll(wall);
+        map.addAll(finish);
+        map.add(player);
+        for (int i = 0; i < map.size(); i++) {
+            if (map.get(i) != null) {
+                Sel item = (Sel) map.get(i);//map diterjemahkan dalam kelas pixel.
+                g.drawImage(item.getImage(), item.getBaris(), item.getKolom(), this);//proses gambar di panel
+            }
+        }
+    }
+
     public void tambahSel(Sel sel) {
         daftarSel.add(sel);
     }
 
-    /**
-     * Fungsi hapus sel. Sel yang paling akhir diremove dari daftar sel.
-     */
     public void hapusSel() {
         if (!daftarSel.isEmpty()) {
             daftarSel.remove(0);
         }
     }
 
-    /**
-     * @return the tinggi
-     */
     public int getTinggi() {
         return tinggi;
     }
 
-    /**
-     * @param tinggi the tinggi to set
-     */
     public void setTinggi(int tinggi) {
         this.tinggi = tinggi;
     }
 
-    /**
-     * @return the lebar
-     */
     public int getLebar() {
         return lebar;
     }
 
-    /**
-     * @param lebar the lebar to set
-     */
     public void setLebar(int lebar) {
         this.lebar = lebar;
     }
 
-    /**
-     * @return the daftarSel
-     */
     public ArrayList<Sel> getDaftarSel() {
         return daftarSel;
     }
 
-    /**
-     * @param daftarSel the daftarSel to set
-     */
     public void setDaftarSel(ArrayList<Sel> daftarSel) {
         this.daftarSel = daftarSel;
     }
 
-    /**
-     * @return the isi
-     */
     public String getIsi() {
         return isi;
     }
 
-    /**
-     * @param isi the isi to set
-     */
     public void setIsi(String isi) {
         this.isi = isi;
     }
-}
 
+    public ArrayList getWall() {
+        return wall;
+    }
+
+    public ArrayList getFinish() {
+        return finish;
+    }
+
+    public ArrayList getMap() {
+        return map;
+    }
+
+    public int getJarak() {
+        return jarak;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public static int getBatasKanan() {
+        return batasKanan;
+    }
+
+    public static int getBatasBawah() {
+        return batasBawah;
+    }
+
+}
