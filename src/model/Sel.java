@@ -18,6 +18,7 @@ public class Sel {
     private int kolom = 0;
     private int lebar = 25;
     private int tinggi = 25;
+    private int jarak = 20;
     private Image image;
     private char nilai;
 
@@ -126,6 +127,14 @@ public class Sel {
         }
     }
 
+    public boolean isBatasAtas() {
+        return false;
+    }
+
+    public boolean isBatasBawah() {
+        return false;
+    }
+
     public void geserKanan() {
         if (isBatasKanan() == false) {
             kolom++;
@@ -142,20 +151,44 @@ public class Sel {
         }
     }
 
-    public boolean isBatasAtas() {
-        return false;
-    }
-
-    public boolean isBatasBawah() {
-        return false;
-    }
-
     public void geserAtas() {
 
     }
 
     public void geserBawah() {
 
+    }
+    
+    public boolean PosisiKiriObjek(Sel Objek) {
+        if (((this.getKolom()- jarak) == Objek.getKolom()) && (this.getBaris()) == Objek.getBaris()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean PosisiKananObjek(Sel Objek) {
+        if (((this.getBaris()+ jarak) == Objek.getKolom()) && (this.getKolom()) == Objek.getKolom()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean PosisiAtasObjek(Sel Objek) {
+        if (((this.getBaris()- jarak) == Objek.getBaris()) && (this.getKolom()) == Objek.getKolom()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean PosisiBawahObjek(Sel Objek) {
+        if (((this.getBaris()+ jarak) == Objek.getBaris()) && (this.getKolom()== Objek.getKolom())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
