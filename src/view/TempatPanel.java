@@ -36,19 +36,15 @@ public class TempatPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawRect(0, 0, Tempat.batasKanan, Tempat.batasBawah);
-        // proses gambar daftar sel
-        // asumsi sel berbentuk lingkaran
-        // gambar lingkaran dengan fillOval dengan diameter 20
-        if (tempat != null) {
-            for (int i = 0; i < tempat.getDaftarSel().size(); i++) {
-                Sel sel = tempat.getDaftarSel().get(i);
-//                g.setColor(sel.getWarna());
-//                g.fillOval(sel.getKolom()*sel.getLebar(),
-//                        sel.getBaris()*sel.getTinggi(),
-//                        sel.getLebar(),
-//                        sel.getTinggi());
-                g.drawImage(sel.getImage(), sel.getBaris(), sel.getKolom(), this);
+        g.setColor(new Color(255, 255, 255));//set panel warna putih
+        g.fillRect(0, 0, tempat.getLebar(), tempat.getTinggi());// set tinggi lebar sesuai konfigurasi
+        tempat.getMap().addAll(tempat.getWall());
+        tempat.getMap().addAll(tempat.getFinish());
+        tempat.getMap().add(tempat.getPlayer());
+        for (int i = 0; i < tempat.getMap().size(); i++) {
+            if (tempat.getMap().get(i) != null) {
+                Sel item = (Sel) tempat.getMap().get(i);//map diterjemahkan dalam kelas pixel.
+                g.drawImage(item.getImage(), item.getKolom(), item.getBaris(), this);//proses gambar di panel
             }
         }
     }
