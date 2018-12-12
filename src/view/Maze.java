@@ -60,6 +60,11 @@ public class Maze extends javax.swing.JFrame {
         jLabel1.setText("Perintah");
 
         okButton.setText("OK");
+        okButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okButtonActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("File");
 
@@ -127,11 +132,23 @@ public class Maze extends javax.swing.JFrame {
             int lebar = selPanel.getWidth();
             int tinggi = selPanel.getHeight();
             //mendapatkan titik koordinat x,y
-            int x = (lebar - peta.getWidth()) / 2;
-            int y = (tinggi - peta.getHeight()) / 2;
+            int x = (lebar - peta.getWidth())/2;
+            int y = (tinggi - peta.getHeight())/2 ;
             peta.setLocation(x, y);
         }    
     }//GEN-LAST:event_openMenuItemActionPerformed
+
+    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        // TODO add your handling code here:
+        String [] a = perintahText.getText().split(" ");
+        if (a[0].equalsIgnoreCase("r")) {
+            for (int i = 0; i < peta.getDaftarSel().size(); i++) {
+                if (peta.getDaftarSel().get(i).getNilai() == '@') {
+                    peta.getDaftarSel().get(i).geserKanan();
+                }
+            }
+        }
+    }//GEN-LAST:event_okButtonActionPerformed
 
 /**
  * @param args the command line arguments

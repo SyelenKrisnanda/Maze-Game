@@ -32,7 +32,7 @@ public class Tempat extends JPanel {
     private ArrayList finish = new ArrayList();//menyimpan data gawang
     private ArrayList<Sel> map = new ArrayList();//menyimpan data tembok,gawang,bola,soko
     private String isi; // isi file konfigurasi
-    private int jarak = 20;//untuk menentukan besarkan pixel/jarak space gambar didalam panel.
+    private int jarak = 50;//untuk menentukan besarkan pixel/jarak space gambar didalam panel.
     private Player player;
     public static int batasKanan;
     public static int batasBawah;
