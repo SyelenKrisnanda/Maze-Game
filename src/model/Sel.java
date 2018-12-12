@@ -18,7 +18,7 @@ public class Sel {
     private int kolom = 0;
     private int lebar = 25;
     private int tinggi = 25;
-    private int jarak = 20;
+    private int jarak = 50;
     private Image image;
     private char nilai;
 
