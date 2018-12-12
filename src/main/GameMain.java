@@ -6,6 +6,7 @@
 package main;
 
 import view.GameFrame;
+import view.Maze;
 import view.TempatPanel;
 
 /**
@@ -14,7 +15,7 @@ import view.TempatPanel;
  */
 public class GameMain {
     public static void main(String[] args) {
-        GameFrame game = new GameFrame("My Game");
-        
+        Maze game = new Maze();
+        game.setVisible(true);
     }
 }
