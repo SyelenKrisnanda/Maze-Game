@@ -30,13 +30,13 @@ public class Tempat extends JPanel {
     private int tinggi = 0; // tinggi tempat Game
     private int lebar = 0;  // lebar tempat Game
     private ArrayList<Sel> daftarSel; // daftar sel
-    private ArrayList tembok = new ArrayList();//menyimpan data tembok
-    private ArrayList finish = new ArrayList();//menyimpan data gawang
-    private ArrayList<Sel> map = new ArrayList();//menyimpan data tembok,gawang,bola,soko
+    private ArrayList wall = new ArrayList();//menyimpan data wall
+    private ArrayList<Sel> map = new ArrayList();//menyimpan data wall,gawang,bola,soko
     private ArrayList<String> undo = new ArrayList<>();
     private String isi; // isi file konfigurasi
     private int jarak = 50;//untuk menentukan besarkan pixel/jarak space gambar didalam panel.
     private Player player;
+    private Finish finish;
     public static int batasKanan;
     public static int batasBawah;
     private File alamat;
@@ -91,12 +91,8 @@ public class Tempat extends JPanel {
         this.isi = isi;
     }
 
-    public ArrayList getTembok() {
-        return tembok;
-    }
-
-    public ArrayList getFinish() {
-        return finish;
+    public ArrayList getWall() {
+        return wall;
     }
 
     public ArrayList getMap() {
@@ -119,6 +115,10 @@ public class Tempat extends JPanel {
         return batasBawah;
     }
 
+    public Finish getFinish() {
+        return finish;
+    }
+
     public void bacaKonfigurasi(File file) {
         try {
             alamat = file;
@@ -128,30 +128,29 @@ public class Tempat extends JPanel {
             int posisiY = 0;
             int posisiX = 0;
             Tembok wall;
-            Finish a;
 
             while ((data = input.read()) != -1) {
-                    char item = (char) data;
-                    if (item == '\n') {
-                        posisiY += jarak;
-                        lebar = posisiX;
-                        posisiX = 0;
-                    } else if (item == '#') {
-                        wall = new Tembok(posisiX, posisiY);
-                        tembok.add(wall);
-                        posisiX += jarak;
-                    } else if (item == 'o') {
-                        a = new Finish(posisiX, posisiY);
-                        finish.add(a);
-                        posisiX += jarak;
-                    } else if (item == '@') {
-                        player = new Player(posisiX, posisiY);
-                        posisiX += jarak;
-                    } else if (item == '.') {
-                        posisiX += jarak;
-                    }
-                    tinggi = posisiY;
+                char item = (char) data;
+                if (item == '\n') {
+                    posisiY += jarak;
+                    lebar = posisiX;
+                    posisiX = 0;
+                } else if (item == '#') {
+                    wall = new Tembok(posisiX, posisiY);
+                    this.wall.add(wall);
+                    posisiX += jarak;
+                } else if (item == 'o') {
+                    finish = new Finish(posisiX, posisiY);
+
+                    posisiX += jarak;
+                } else if (item == '@') {
+                    player = new Player(posisiX, posisiY);
+                    posisiX += jarak;
+                } else if (item == '.') {
+                    posisiX += jarak;
                 }
+                tinggi = posisiY;
+            }
 
             this.setIsi(hasilBaca);
 
@@ -168,8 +167,8 @@ public class Tempat extends JPanel {
         // Tempat Gambar:
         g.setColor(new Color(255, 255, 255));//set panel warna putih
         g.fillRect(0, 0, this.getLebar(), this.getTinggi());// set tinggi lebar sesuai konfigurasi
-        map.addAll(tembok);
-        map.addAll(finish);
+        map.addAll(wall);
+        map.add(finish);
         map.add(player);
         for (int i = 0; i < map.size(); i++) {
             Sel item = (Sel) map.get(i);//map diterjemahkan dalam kelas pixel.
@@ -221,44 +220,44 @@ public class Tempat extends JPanel {
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Kata Tidak Dikenal");
+                JOptionPane.showConfirmDialog(null, "Kata Tidak Dikenal");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Jumlah kata hanya satu");
+            JOptionPane.showMessageDialog(null, "Tidak Memenuhi Perintah !","Warning",1);
         }
     }
 
     private boolean cekObjekNabrakTembok(Sel player, String input) {
         boolean bantu = false;
         if (input.equalsIgnoreCase("u")) {
-            for (int i = 0; i < tembok.size(); i++) {
-                Tembok wall = (Tembok) tembok.get(i);//ambil posisi tembok
-                if (player.PosisiKiriObjek(wall)) {
+            for (int i = 0; i < wall.size(); i++) {
+                Tembok wall = (Tembok) this.wall.get(i);//ambil posisi wall
+                if (player.PosisiUpObjek(wall)) {
                     bantu = true;
                     break;
                 }
             }
 
         } else if (input.equalsIgnoreCase("d")) {
-            for (int i = 0; i < tembok.size(); i++) {
-                Tembok wall = (Tembok) tembok.get(i);//ambil posisi tembok
-                if (player.PosisiKananObjek(wall)) {
+            for (int i = 0; i < wall.size(); i++) {
+                Tembok wall = (Tembok) this.wall.get(i);//ambil posisi wall
+                if (player.PosisiDownObjek(wall)) {
                     bantu = true;
                     break;
                 }
             }
         } else if (input.equalsIgnoreCase("l")) {
-            for (int i = 0; i < tembok.size(); i++) {
-                Tembok wall = (Tembok) tembok.get(i);//ambil posisi tembok
-                if (player.PosisiAtasObjek(wall)) {
+            for (int i = 0; i < wall.size(); i++) {
+                Tembok wall = (Tembok) this.wall.get(i);//ambil posisi wall
+                if (player.PosisiLeftObjek(wall)) {
                     bantu = true;
                     break;
                 }
             }
         } else if (input.equalsIgnoreCase("r")) {
-            for (int i = 0; i < tembok.size(); i++) {
-                Tembok wall = (Tembok) tembok.get(i);//ambil posisi tembok
-                if (player.PosisiBawahObjek(wall)) {
+            for (int i = 0; i < wall.size(); i++) {
+                Tembok wall = (Tembok) this.wall.get(i);//ambil posisi wall
+                if (player.PosisiRightObjek(wall)) {
                     bantu = true;
                     break;
                 }
@@ -273,7 +272,7 @@ public class Tempat extends JPanel {
         String[] ulang = input.split(" ");
         if (ulang[0].equalsIgnoreCase("l")) {
             if (cekObjekNabrakTembok(player, "r")) {
-                return;
+//                return;
             } else {
                 int a = Integer.valueOf(ulang[1]);
                 player.Gerak(0, jarak * a);
@@ -283,7 +282,7 @@ public class Tempat extends JPanel {
         } else if (ulang[0].equalsIgnoreCase("r")) {
             if (cekObjekNabrakTembok(player,
                     "l")) {
-                return;
+//                return;
             } else {
                 int a = Integer.valueOf(ulang[1]);
                 player.Gerak(0, -a * jarak);
@@ -293,7 +292,7 @@ public class Tempat extends JPanel {
         } else if (ulang[0].equalsIgnoreCase("u")) {
             if (cekObjekNabrakTembok(player,
                     "d")) {
-                return;
+//                return;
             } else {
                 int a = Integer.valueOf(ulang[1]);
                 player.Gerak(a * jarak, 0);
@@ -315,11 +314,17 @@ public class Tempat extends JPanel {
 
     public void restart() {
         undo.clear();//hapus semua perintah yang tersimpan
-        finish.clear();//hapus gawang
-        tembok.clear();//hapus tembok
+        wall.clear();//hapus wall
         map.clear();//hapus map
         bacaKonfigurasi(alamat);//set ulang gambar peta
         repaint();//gambar ulang
     }
 
+    public boolean Selesai() {
+        if (player.getPosisiX() == finish.getPosisiX() && player.getPosisiY() == finish.getPosisiY()) {
+            map.clear();
+            return true;
+        }
+        return false;
+    }
 }
