@@ -42,10 +42,10 @@ public class TempatPanel extends JPanel {
         tempat.getMap().addAll(tempat.getFinish());
         tempat.getMap().add(tempat.getPlayer());
         for (int i = 0; i < tempat.getMap().size(); i++) {
-            if (tempat.getMap().get(i) != null) {
+//            if (tempat.getMap().get(i) != null) {
                 Sel item = (Sel) tempat.getMap().get(i);//map diterjemahkan dalam kelas pixel.
                 g.drawImage(item.getImage(), item.getKolom(), item.getBaris(), this);//proses gambar di panel
-            }
+//            }
         }
     }
 
