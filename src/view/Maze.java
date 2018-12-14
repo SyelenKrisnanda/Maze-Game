@@ -6,6 +6,7 @@
 package view;
 
 import java.io.File;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Tempat;
 
@@ -15,8 +16,9 @@ import model.Tempat;
  */
 public class Maze extends javax.swing.JFrame {
 
-    model.Tempat peta;
+    Tempat peta;
     File file;
+    int level = 1;
 
     /**
      * Creates new form Maze
@@ -44,7 +46,6 @@ public class Maze extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
         howToplayMenu = new javax.swing.JMenuItem();
         mapMenu = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -106,15 +107,13 @@ public class Maze extends javax.swing.JFrame {
         });
         jMenu1.add(openMenuItem);
 
-        jMenu2.setText("Hint");
-
         howToplayMenu.setText("How to Play");
         howToplayMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 howToplayMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(howToplayMenu);
+        jMenu1.add(howToplayMenu);
 
         mapMenu.setText("Map");
         mapMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -122,11 +121,14 @@ public class Maze extends javax.swing.JFrame {
                 mapMenuActionPerformed(evt);
             }
         });
-        jMenu2.add(mapMenu);
-
-        jMenu1.add(jMenu2);
+        jMenu1.add(mapMenu);
 
         exitMenuItem.setText("Exit");
+        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuItemActionPerformed(evt);
+            }
+        });
         jMenu1.add(exitMenuItem);
 
         jMenuBar1.add(jMenu1);
@@ -190,32 +192,79 @@ public class Maze extends javax.swing.JFrame {
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        peta.Gerak(perintahText.getText());
-        perintahText.setText("");
+        try {
+            peta.Gerak(perintahText.getText());
+            perintahText.setText("");
+            selesai();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Baca Peta Terlebih Dahulu !","Peringatan",0);
+        }
+
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void undoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonActionPerformed
-        // TODO add your handling code here:
         peta.undo();
     }//GEN-LAST:event_undoButtonActionPerformed
 
     private void restartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartButtonActionPerformed
-        // TODO add your handling code here:
         peta.restart();
     }//GEN-LAST:event_restartButtonActionPerformed
 
     private void perintahTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perintahTextActionPerformed
-        // TODO add your handling code here:
         peta.Gerak(perintahText.getText());
         perintahText.setText("");
+        selesai();
     }//GEN-LAST:event_perintahTextActionPerformed
+    private void peta2() {
+        selPanel.removeAll();
+        peta = new Tempat(new File("Peta1.txt"));
+        selPanel.add(peta);
+        peta.setSize(peta.getLebar() + 50, peta.getTinggi() + 50);
+        int lebar = selPanel.getWidth();
+        int tinggi = selPanel.getHeight();
+        int x = (lebar - peta.getWidth()) / 2;
+        int y = (tinggi - peta.getHeight()) / 2;
+        peta.setLocation(x, y);
+    }
 
+    private void peta3() {
+        selPanel.removeAll();
+        peta = new Tempat(new File("Peta2.txt"));
+        selPanel.add(peta);
+        peta.setSize(peta.getLebar() + 50, peta.getTinggi() + 50);
+        //setelah diset panel sel, kita letakkan posisi peta Mazegame
+        int lebar = selPanel.getWidth();
+        int tinggi = selPanel.getHeight();
+        //mendapatkan titik koordinat x,y
+        int x = (lebar - peta.getWidth()) / 2;
+        int y = (tinggi - peta.getHeight()) / 2;
+        peta.setLocation(x, y);
+    }
+
+    private void selesai() {
+        if (peta.Selesai()) {
+            if (level == 1) {
+                JOptionPane.showMessageDialog(null, "Level 1 Selesai");
+                peta2();
+                JOptionPane.showMessageDialog(null, "Level 2");
+                level++;
+            } else if (level == 2) {
+                JOptionPane.showMessageDialog(null, "Level 2 Selesai");
+                peta3();
+                level++;
+            } else{
+                JOptionPane.showMessageDialog(null, "Tamat\nTerima Kasih Telah mencoba\n^.^");
+                System.exit(0);
+            }
+
+        }
+    }
     private void howToplayMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howToplayMenuActionPerformed
         // TODO add your handling code here:
         String[] a = {"OK"};
-        JOptionPane.showOptionDialog(null, "r = Right\nl = Left\nd = Down\nu = Up", "How To Play", 
+        JOptionPane.showOptionDialog(null, "r = Right\nl = Left\nd = Down\nu = Up", "How To Play",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION,
-                 null, a, a[0]);
+                null, a, a[0]);
     }//GEN-LAST:event_howToplayMenuActionPerformed
 
     private void mapMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapMenuActionPerformed
@@ -231,6 +280,11 @@ public class Maze extends javax.swing.JFrame {
         int y = (tinggi - peta.getHeight()) / 2;
         peta.setLocation(x, y);
     }//GEN-LAST:event_mapMenuActionPerformed
+
+    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_exitMenuItemActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -270,7 +324,6 @@ public class Maze extends javax.swing.JFrame {
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem mapMenu;
     private javax.swing.JButton okButton;
