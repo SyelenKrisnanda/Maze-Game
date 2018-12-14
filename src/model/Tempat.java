@@ -122,41 +122,36 @@ public class Tempat extends JPanel {
     public void bacaKonfigurasi(File file) {
         try {
             alamat = file;
-            FileInputStream fis = new FileInputStream(file);
+            FileInputStream input = new FileInputStream(file);
             String hasilBaca = "";
             int data;
             int posisiY = 0;
             int posisiX = 0;
-            Tembok a;
-            Finish b;
+            Tembok wall;
+            Finish a;
 
-            while ((data = fis.read()) != -1) {
-                char item = (char) data;
-                if (item == '\n') {
-                    hasilBaca += (char) data;
-                    posisiY += jarak;
-                    lebar = posisiX;
-                    posisiX = 0;
-                } else if (item == '#') {
-                    hasilBaca += (char) data;
-                    a = new Tembok(posisiX, posisiY);
-                    tembok.add(a);
-                    posisiX += jarak;
-                } else if (item == 'o') {
-                    hasilBaca += (char) data;
-                    b = new Finish(posisiX, posisiY);
-                    finish.add(b);
-                    posisiX += jarak;
-                } else if (item == '@') {
-                    hasilBaca += (char) data;
-                    player = new Player(posisiX, posisiY);
-                    posisiX += jarak;
-                } else if (item == '.') {
-                    hasilBaca += (char) data;
-                    posisiX += jarak;
+            while ((data = input.read()) != -1) {
+                    char item = (char) data;
+                    if (item == '\n') {
+                        posisiY += jarak;
+                        lebar = posisiX;
+                        posisiX = 0;
+                    } else if (item == '#') {
+                        wall = new Tembok(posisiX, posisiY);
+                        tembok.add(wall);
+                        posisiX += jarak;
+                    } else if (item == 'o') {
+                        a = new Finish(posisiX, posisiY);
+                        finish.add(a);
+                        posisiX += jarak;
+                    } else if (item == '@') {
+                        player = new Player(posisiX, posisiY);
+                        posisiX += jarak;
+                    } else if (item == '.') {
+                        posisiX += jarak;
+                    }
+                    tinggi = posisiY;
                 }
-                tinggi = posisiY;
-            }
 
             this.setIsi(hasilBaca);
 
@@ -188,45 +183,43 @@ public class Tempat extends JPanel {
             JOptionPane.showMessageDialog(null, "Jumlah kata lebih dari 2");
         } else if (in.length == 2) {
             undo.add(input);
-            if (in[0].equalsIgnoreCase("u")) {
+            if (in[0].equalsIgnoreCase("l")) {
                 for (int i = 0; i < Integer.parseInt(String.valueOf(in[1])); i++) {
-                    if (cekObjekNabrakTembok(player, "u")) {
-                        return;
+                    if (cekObjekNabrakTembok(player, "l")) {
+//                        return;
                     } else {
                         player.Gerak(0, -jarak);
                         repaint();
                     }
 
                 }
-            } else if (in[0].equalsIgnoreCase("d")) {
+            } else if (in[0].equalsIgnoreCase("r")) {
                 for (int i = 0; i < Integer.parseInt(String.valueOf(in[1])); i++) {
-                    if (cekObjekNabrakTembok(player, "d")) {
-                        return;
+                    if (cekObjekNabrakTembok(player, "r")) {
+//                        return;
                     } else {
                         player.Gerak(0, jarak);
                         repaint();
                     }
                 }
-            } else if (in[0].equalsIgnoreCase("r")) {
+            } else if (in[0].equalsIgnoreCase("d")) {
                 for (int i = 0; i < Integer.parseInt(String.valueOf(in[1])); i++) {
-                    if (cekObjekNabrakTembok(player, "r")) {
-                        return;
+                    if (cekObjekNabrakTembok(player, "d")) {
+//                        return;
                     } else {
                         player.Gerak(jarak, 0);
                         repaint();
                     }
                 }
-            } else if (in[0].equalsIgnoreCase("l")) {
+            } else if (in[0].equalsIgnoreCase("u")) {
                 for (int i = 0; i < Integer.parseInt(String.valueOf(in[1])); i++) {
-                    if (cekObjekNabrakTembok(player, "l")) {
-                        return;
+                    if (cekObjekNabrakTembok(player, "u")) {
+//                        return;
                     } else {
                         player.Gerak(-jarak, 0);
                         repaint();
                     }
                 }
-            } else if (in[0].equalsIgnoreCase("z")) {
-                undo();
             } else {
                 JOptionPane.showMessageDialog(null, "Kata Tidak Dikenal");
             }
@@ -237,7 +230,7 @@ public class Tempat extends JPanel {
 
     private boolean cekObjekNabrakTembok(Sel player, String input) {
         boolean bantu = false;
-        if (input.equalsIgnoreCase("l")) {
+        if (input.equalsIgnoreCase("u")) {
             for (int i = 0; i < tembok.size(); i++) {
                 Tembok wall = (Tembok) tembok.get(i);//ambil posisi tembok
                 if (player.PosisiKiriObjek(wall)) {
@@ -246,7 +239,7 @@ public class Tempat extends JPanel {
                 }
             }
 
-        } else if (input.equalsIgnoreCase("r")) {
+        } else if (input.equalsIgnoreCase("d")) {
             for (int i = 0; i < tembok.size(); i++) {
                 Tembok wall = (Tembok) tembok.get(i);//ambil posisi tembok
                 if (player.PosisiKananObjek(wall)) {
@@ -254,7 +247,7 @@ public class Tempat extends JPanel {
                     break;
                 }
             }
-        } else if (input.equalsIgnoreCase("u")) {
+        } else if (input.equalsIgnoreCase("l")) {
             for (int i = 0; i < tembok.size(); i++) {
                 Tembok wall = (Tembok) tembok.get(i);//ambil posisi tembok
                 if (player.PosisiAtasObjek(wall)) {
@@ -262,7 +255,7 @@ public class Tempat extends JPanel {
                     break;
                 }
             }
-        } else if (input.equalsIgnoreCase("d")) {
+        } else if (input.equalsIgnoreCase("r")) {
             for (int i = 0; i < tembok.size(); i++) {
                 Tembok wall = (Tembok) tembok.get(i);//ambil posisi tembok
                 if (player.PosisiBawahObjek(wall)) {
@@ -310,7 +303,6 @@ public class Tempat extends JPanel {
         } else if (ulang[0].equalsIgnoreCase("d")) {
             if (cekObjekNabrakTembok(player,
                     "u")) {
-                return;
             } else {
                 int a = Integer.valueOf(ulang[1]);
                 player.Gerak(-a * jarak, 0);
