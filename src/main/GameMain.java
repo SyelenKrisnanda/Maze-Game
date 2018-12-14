@@ -5,9 +5,7 @@
  */
 package main;
 
-import view.GameFrame;
 import view.Maze;
-import view.TempatPanel;
 
 /**
  *

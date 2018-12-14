@@ -8,17 +8,13 @@ package model;
 import java.awt.Color;
 import java.awt.Image;
 
-/**
- *
- * @author user only
- */
 public class Sel {
 
-    private int baris = 0;
-    private int kolom = 0;
+    private int posisiY = 0;
+    private int posisiX = 0;
     private int lebar = 25;
     private int tinggi = 25;
-    private int jarak = 50;
+    private int Jarak = 40;
     private Image image;
     private char nilai;
 
@@ -28,46 +24,46 @@ public class Sel {
     }
 
     public Sel(int baris, int kolom, char nilai) {
-        this.baris = baris;
-        this.kolom = kolom;
+        this.posisiY = baris;
+        this.posisiX = kolom;
         this.nilai = nilai;
     }
 
     public Sel(int baris, int kolom) {
-        this.baris = baris;
-        this.kolom = kolom;
+        this.posisiY = baris;
+        this.posisiX = kolom;
     }
 
     public Sel(int baris, int kolom, char nilai, Color warna) {
-        this.baris = baris;
-        this.kolom = kolom;
+        this.posisiY = baris;
+        this.posisiX = kolom;
         this.nilai = nilai;
         this.warna = warna;
     }
 
     public Sel(int baris, int kolom, int lebar, int tinggi, char nilai, Color warna) {
-        this.baris = baris;
-        this.kolom = kolom;
+        this.posisiY = baris;
+        this.posisiX = kolom;
         this.lebar = lebar;
         this.tinggi = tinggi;
         this.nilai = nilai;
         this.warna = warna;
     }
 
-    public int getBaris() {
-        return baris;
+    public int getPosisiY() {
+        return posisiY;
     }
 
-    public void setBaris(int baris) {
-        this.baris = baris;
+    public void setPosisiY(int posisiY) {
+        this.posisiY = posisiY;
     }
 
-    public int getKolom() {
-        return kolom;
+    public int getPosisiX() {
+        return posisiX;
     }
 
-    public void setKolom(int kolom) {
-        this.kolom = kolom;
+    public void setPosisiX(int posisiX) {
+        this.posisiX = posisiX;
     }
 
     public char getNilai() {
@@ -111,16 +107,15 @@ public class Sel {
     }
 
     public boolean isBatasKiri() {
-        if (kolom * lebar <= 0) {
+        if (posisiX * lebar <= 0) {
             return true;
         } else {
             return false;
         }
-
     }
 
     public boolean isBatasKanan() {
-        if (kolom * lebar + lebar < Tempat.batasKanan) {
+        if (posisiX * lebar + lebar < Tempat.batasKanan) {
             return false;
         } else {
             return true;
@@ -137,17 +132,17 @@ public class Sel {
 
     public void geserKanan() {
         if (isBatasKanan() == false) {
-            kolom++;
+            posisiX++;
         } else {
-            kolom--;
+            posisiX--;
         }
     }
 
     public void geserKiri() {
         if (isBatasKiri() == false) {
-            kolom--;
+            posisiX--;
         } else {
-            kolom++;
+            posisiX++;
         }
     }
 
@@ -160,7 +155,7 @@ public class Sel {
     }
     
     public boolean PosisiKiriObjek(Sel Objek) {
-        if (((this.getKolom()- jarak) == Objek.getKolom()) && (this.getBaris()) == Objek.getBaris()) {
+        if (((this.getPosisiX() - Jarak) == Objek.getPosisiX()) && (this.getPosisiY() == Objek.getPosisiY())) {
             return true;
         } else {
             return false;
@@ -168,7 +163,7 @@ public class Sel {
     }
 
     public boolean PosisiKananObjek(Sel Objek) {
-        if (((this.getBaris()+ jarak) == Objek.getKolom()) && (this.getKolom()) == Objek.getKolom()) {
+        if (((this.getPosisiX() + Jarak) == Objek.getPosisiX()) && (this.getPosisiY() == Objek.getPosisiY())) {
             return true;
         } else {
             return false;
@@ -176,7 +171,7 @@ public class Sel {
     }
 
     public boolean PosisiAtasObjek(Sel Objek) {
-        if (((this.getBaris()- jarak) == Objek.getBaris()) && (this.getKolom()) == Objek.getKolom()) {
+        if (((this.getPosisiY() - Jarak) == Objek.getPosisiY()) && (this.getPosisiX() == Objek.getPosisiX())) {
             return true;
         } else {
             return false;
@@ -184,11 +179,10 @@ public class Sel {
     }
 
     public boolean PosisiBawahObjek(Sel Objek) {
-        if (((this.getBaris()+ jarak) == Objek.getBaris()) && (this.getKolom()== Objek.getKolom())) {
+        if (((this.getPosisiY() + Jarak) == Objek.getPosisiY()) && (this.getPosisiX() == Objek.getPosisiX())) {
             return true;
         } else {
             return false;
         }
     }
-
 }

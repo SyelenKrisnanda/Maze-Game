@@ -6,6 +6,7 @@
 package view;
 
 import java.io.File;
+import javax.swing.JOptionPane;
 import model.Tempat;
 
 /**
@@ -38,31 +39,60 @@ public class Maze extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         perintahText = new javax.swing.JTextField();
         okButton = new javax.swing.JButton();
+        undoButton = new javax.swing.JButton();
+        restartButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        howToplayMenu = new javax.swing.JMenuItem();
+        mapMenu = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        selPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        selPanel.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
+        selPanel.setPreferredSize(new java.awt.Dimension(500, 300));
 
         javax.swing.GroupLayout selPanelLayout = new javax.swing.GroupLayout(selPanel);
         selPanel.setLayout(selPanelLayout);
         selPanelLayout.setHorizontalGroup(
             selPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 569, Short.MAX_VALUE)
         );
         selPanelLayout.setVerticalGroup(
             selPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 225, Short.MAX_VALUE)
+            .addGap(0, 338, Short.MAX_VALUE)
         );
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Perintah");
+
+        perintahText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                perintahTextActionPerformed(evt);
+            }
+        });
 
         okButton.setText("OK");
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
+            }
+        });
+
+        undoButton.setText("Undo");
+        undoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                undoButtonActionPerformed(evt);
+            }
+        });
+
+        restartButton.setText("Restart");
+        restartButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restartButtonActionPerformed(evt);
             }
         });
 
@@ -76,8 +106,25 @@ public class Maze extends javax.swing.JFrame {
         });
         jMenu1.add(openMenuItem);
 
-        jMenuItem1.setText("Hint");
-        jMenu1.add(jMenuItem1);
+        jMenu2.setText("Hint");
+
+        howToplayMenu.setText("How to Play");
+        howToplayMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                howToplayMenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(howToplayMenu);
+
+        mapMenu.setText("Map");
+        mapMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mapMenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mapMenu);
+
+        jMenu1.add(jMenu2);
 
         exitMenuItem.setText("Exit");
         jMenu1.add(exitMenuItem);
@@ -92,31 +139,35 @@ public class Maze extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(selPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(perintahText, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(okButton)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(undoButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(restartButton)
+                .addContainerGap(144, Short.MAX_VALUE))
+            .addComponent(selPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(selPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(22, 22, 22)
+                .addComponent(selPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(perintahText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(okButton))
+                    .addComponent(okButton)
+                    .addComponent(undoButton)
+                    .addComponent(restartButton))
                 .addContainerGap())
         );
 
-        pack();
+        setSize(new java.awt.Dimension(585, 472));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
@@ -132,64 +183,80 @@ public class Maze extends javax.swing.JFrame {
             int lebar = selPanel.getWidth();
             int tinggi = selPanel.getHeight();
             //mendapatkan titik koordinat x,y
-            int x = (lebar - peta.getWidth())/2;
-            int y = (tinggi - peta.getHeight())/2 ;
+            int x = (lebar - peta.getWidth()) / 2;
+            int y = (tinggi - peta.getHeight()) / 2;
             peta.setLocation(x, y);
-        }    
+        }
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        // TODO add your handling code here:
-        String [] a = perintahText.getText().split(" ");
-        if (a[0].equalsIgnoreCase("r")) {
-            for (int i = 0; i < peta.getDaftarSel().size(); i++) {
-                if (peta.getDaftarSel().get(i).getNilai() == '@') {
-                    peta.getDaftarSel().get(i).geserKanan();
-                }
-            }
-        }
+        peta.Gerak(perintahText.getText());
+        perintahText.setText("");
     }//GEN-LAST:event_okButtonActionPerformed
 
-/**
- * @param args the command line arguments
- */
-public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void undoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonActionPerformed
+        // TODO add your handling code here:
+        peta.undo();
+    }//GEN-LAST:event_undoButtonActionPerformed
+
+    private void restartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartButtonActionPerformed
+        // TODO add your handling code here:
+        peta.restart();
+    }//GEN-LAST:event_restartButtonActionPerformed
+
+    private void perintahTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perintahTextActionPerformed
+        // TODO add your handling code here:
+        peta.Gerak(perintahText.getText());
+        perintahText.setText("");
+    }//GEN-LAST:event_perintahTextActionPerformed
+
+    private void howToplayMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howToplayMenuActionPerformed
+        // TODO add your handling code here:
+        String[] a = {"OK"};
+        JOptionPane.showOptionDialog(null, "r = Right\nl = Left\nd = Down\nu = Up", "How To Play", 
+                JOptionPane.DEFAULT_OPTION, JOptionPane.DEFAULT_OPTION,
+                 null, a, a[0]);
+    }//GEN-LAST:event_howToplayMenuActionPerformed
+
+    private void mapMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapMenuActionPerformed
+        // TODO add your handling code here:
+        peta = new Tempat(new File("Peta.txt"));
+        selPanel.add(peta);
+        peta.setSize(peta.getLebar() + 50, peta.getTinggi() + 50);
+        //setelah diset panel sel, kita letakkan posisi peta Mazegame
+        int lebar = selPanel.getWidth();
+        int tinggi = selPanel.getHeight();
+        //mendapatkan titik koordinat x,y
+        int x = (lebar - peta.getWidth()) / 2;
+        int y = (tinggi - peta.getHeight()) / 2;
+        peta.setLocation(x, y);
+    }//GEN-LAST:event_mapMenuActionPerformed
+
+    public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Maze.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (InstantiationException ex) {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Maze.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Maze.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Maze.class
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Maze().setVisible(true);
@@ -199,14 +266,18 @@ public static void main(String args[]) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem exitMenuItem;
+    private javax.swing.JMenuItem howToplayMenu;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem mapMenu;
     private javax.swing.JButton okButton;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JTextField perintahText;
+    private javax.swing.JButton restartButton;
     private javax.swing.JPanel selPanel;
+    private javax.swing.JButton undoButton;
     // End of variables declaration//GEN-END:variables
 }

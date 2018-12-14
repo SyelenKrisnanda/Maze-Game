@@ -38,13 +38,13 @@ public class TempatPanel extends JPanel {
         super.paintComponent(g);
         g.setColor(new Color(255, 255, 255));//set panel warna putih
         g.fillRect(0, 0, tempat.getLebar(), tempat.getTinggi());// set tinggi lebar sesuai konfigurasi
-        tempat.getMap().addAll(tempat.getWall());
+        tempat.getMap().addAll(tempat.getTembok());
         tempat.getMap().addAll(tempat.getFinish());
         tempat.getMap().add(tempat.getPlayer());
         for (int i = 0; i < tempat.getMap().size(); i++) {
 //            if (tempat.getMap().get(i) != null) {
                 Sel item = (Sel) tempat.getMap().get(i);//map diterjemahkan dalam kelas pixel.
-                g.drawImage(item.getImage(), item.getKolom(), item.getBaris(), this);//proses gambar di panel
+                g.drawImage(item.getImage(), item.getPosisiX(), item.getPosisiY(), this);//proses gambar di panel
 //            }
         }
     }

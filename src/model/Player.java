@@ -16,9 +16,9 @@ public class Player extends Sel{
         this.setImage(image);
     }
     public void Gerak(int x, int y){
-        int nx = this.getKolom() + x;
-        int ny = this.getBaris() + y;
-        this.setKolom(nx);
-        this.setBaris(ny);
+        int nx = this.getPosisiX() + x;
+        int ny = this.getPosisiY() + y;
+        this.setPosisiX(nx);
+        this.setPosisiY(ny);
     }
 }
