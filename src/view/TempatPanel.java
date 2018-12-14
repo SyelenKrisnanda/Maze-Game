@@ -38,8 +38,8 @@ public class TempatPanel extends JPanel {
         super.paintComponent(g);
         g.setColor(new Color(255, 255, 255));//set panel warna putih
         g.fillRect(0, 0, tempat.getLebar(), tempat.getTinggi());// set tinggi lebar sesuai konfigurasi
-        tempat.getMap().addAll(tempat.getTembok());
-        tempat.getMap().addAll(tempat.getFinish());
+        tempat.getMap().addAll(tempat.getWall());
+        tempat.getMap().add(tempat.getFinish());
         tempat.getMap().add(tempat.getPlayer());
         for (int i = 0; i < tempat.getMap().size(); i++) {
 //            if (tempat.getMap().get(i) != null) {
