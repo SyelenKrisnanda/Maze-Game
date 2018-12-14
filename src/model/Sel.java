@@ -10,11 +10,11 @@ import java.awt.Image;
 
 public class Sel {
 
-    private int posisiY = 0;
-    private int posisiX = 0;
+    private int posisiY;
+    private int posisiX;
     private int lebar = 25;
     private int tinggi = 25;
-    private int Jarak = 40;
+    private int Jarak = 50;
     private Image image;
     private char nilai;
 
@@ -154,7 +154,7 @@ public class Sel {
 
     }
     
-    public boolean PosisiKiriObjek(Sel Objek) {
+    public boolean PosisiUpObjek(Sel Objek) {
         if (((this.getPosisiX() - Jarak) == Objek.getPosisiX()) && (this.getPosisiY() == Objek.getPosisiY())) {
             return true;
         } else {
@@ -162,7 +162,7 @@ public class Sel {
         }
     }
 
-    public boolean PosisiKananObjek(Sel Objek) {
+    public boolean PosisiDownObjek(Sel Objek) {
         if (((this.getPosisiX() + Jarak) == Objek.getPosisiX()) && (this.getPosisiY() == Objek.getPosisiY())) {
             return true;
         } else {
@@ -170,7 +170,7 @@ public class Sel {
         }
     }
 
-    public boolean PosisiAtasObjek(Sel Objek) {
+    public boolean PosisiLeftObjek(Sel Objek) {
         if (((this.getPosisiY() - Jarak) == Objek.getPosisiY()) && (this.getPosisiX() == Objek.getPosisiX())) {
             return true;
         } else {
@@ -178,7 +178,7 @@ public class Sel {
         }
     }
 
-    public boolean PosisiBawahObjek(Sel Objek) {
+    public boolean PosisiRightObjek(Sel Objek) {
         if (((this.getPosisiY() + Jarak) == Objek.getPosisiY()) && (this.getPosisiX() == Objek.getPosisiX())) {
             return true;
         } else {
