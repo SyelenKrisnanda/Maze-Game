@@ -209,32 +209,32 @@ public class Tempat extends JPanel {
         boolean bantu = false;
         if (input.equalsIgnoreCase("u")) {
             for (int i = 0; i < wall.size(); i++) {
-                Wall dinding = (Wall) this.wall.get(i);
-                if (player.PosisiObjekAtas(dinding)) {
+                Wall tembok = (Wall) this.wall.get(i);
+                if (player.PosisiObjekAtas(tembok)) {
                     bantu = true;
                     break;
                 }
             }
         } else if (input.equalsIgnoreCase("d")) {
             for (int i = 0; i < wall.size(); i++) {
-                Wall dinding = (Wall) this.wall.get(i);
-                if (player.PosisiObjekBawah(dinding)) {
+                Wall tembok = (Wall) this.wall.get(i);
+                if (player.PosisiObjekBawah(tembok)) {
                     bantu = true;
                     break;
                 }
             }
         } else if (input.equalsIgnoreCase("l")) {
             for (int i = 0; i < wall.size(); i++) {
-                Wall dinding = (Wall) this.wall.get(i);
-                if (player.PosisiObjekKiri(dinding)) {
+                Wall tembok = (Wall) this.wall.get(i);
+                if (player.PosisiObjekKiri(tembok)) {
                     bantu = true;
                     break;
                 }
             }
         } else if (input.equalsIgnoreCase("r")) {
             for (int i = 0; i < wall.size(); i++) {
-                Wall dinding = (Wall) this.wall.get(i);
-                if (player.PosisiObjekKanan(dinding)) {
+                Wall tembok = (Wall) this.wall.get(i);
+                if (player.PosisiObjekKanan(tembok)) {
                     bantu = true;
                     break;
                 }
@@ -282,7 +282,7 @@ public class Tempat extends JPanel {
                 }
                 undo.remove(xc);
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Sudah Kembali Tempat Semula");
         }
 
