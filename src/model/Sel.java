@@ -23,23 +23,12 @@ public class Sel {
     public Sel() {
     }
 
-    public Sel(int baris, int kolom, char nilai) {
-        this.posisiY = baris;
-        this.posisiX = kolom;
-        this.nilai = nilai;
-    }
-
+   
     public Sel(int baris, int kolom) {
         this.posisiY = baris;
         this.posisiX = kolom;
     }
 
-    public Sel(int baris, int kolom, char nilai, Color warna) {
-        this.posisiY = baris;
-        this.posisiX = kolom;
-        this.nilai = nilai;
-        this.warna = warna;
-    }
 
     public Sel(int baris, int kolom, int lebar, int tinggi, char nilai, Color warna) {
         this.posisiY = baris;
@@ -106,83 +95,20 @@ public class Sel {
         this.image = image;
     }
 
-    public boolean isBatasKiri() {
-        if (posisiX * lebar <= 0) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean PosisiObjekKiri(Sel Objek) {
+        return ((this.getPosisiY() - Jarak) == Objek.getPosisiY()) && (this.getPosisiX() == Objek.getPosisiX());
     }
 
-    public boolean isBatasKanan() {
-        if (posisiX * lebar + lebar < Tempat.batasKanan) {
-            return false;
-        } else {
-            return true;
-        }
+    public boolean PosisiObjekKanan(Sel sel) {
+        return ((this.getPosisiY() + Jarak) == sel.getPosisiY()) && (this.getPosisiX() == sel.getPosisiX());
     }
 
-    public boolean isBatasAtas() {
-        return false;
+    public boolean PosisiObjekAtas(Sel sel) {
+        return ((this.getPosisiX() - Jarak) == sel.getPosisiX()) && (this.getPosisiY() == sel.getPosisiY());
     }
 
-    public boolean isBatasBawah() {
-        return false;
+    public boolean PosisiObjekBawah(Sel sel) {
+        return ((this.getPosisiX() + Jarak) == sel.getPosisiX()) && (this.getPosisiY() == sel.getPosisiY());
     }
 
-    public void geserKanan() {
-        if (isBatasKanan() == false) {
-            posisiX++;
-        } else {
-            posisiX--;
-        }
-    }
-
-    public void geserKiri() {
-        if (isBatasKiri() == false) {
-            posisiX--;
-        } else {
-            posisiX++;
-        }
-    }
-
-    public void geserAtas() {
-
-    }
-
-    public void geserBawah() {
-
-    }
-    
-    public boolean PosisiUpObjek(Sel Objek) {
-        if (((this.getPosisiX() - Jarak) == Objek.getPosisiX()) && (this.getPosisiY() == Objek.getPosisiY())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean PosisiDownObjek(Sel Objek) {
-        if (((this.getPosisiX() + Jarak) == Objek.getPosisiX()) && (this.getPosisiY() == Objek.getPosisiY())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean PosisiLeftObjek(Sel Objek) {
-        if (((this.getPosisiY() - Jarak) == Objek.getPosisiY()) && (this.getPosisiX() == Objek.getPosisiX())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean PosisiRightObjek(Sel Objek) {
-        if (((this.getPosisiY() + Jarak) == Objek.getPosisiY()) && (this.getPosisiX() == Objek.getPosisiX())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
