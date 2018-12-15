@@ -57,8 +57,8 @@ public class MazeGame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         adventureMenuItem = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
-        howToplayMenu = new javax.swing.JMenuItem();
         AdventureMenu = new javax.swing.JMenuItem();
+        howToplayMenu = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
 
         AboutDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -71,7 +71,7 @@ public class MazeGame extends javax.swing.JFrame {
 
         tentangTextArea.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tentangTextArea.setEditable(false);
-        tentangTextArea.setText("- How To Move\n  Untuk arah menggunakan \n  statment dibawah ini:\n  R\t= Right\n  L \t= Left\n  U \t= Up\n  D\t= Down\n\n  Untuk banyak langkah\n  menggunakan angka\n  sesuai kebutuhan\n  Contoh : R 5\n  Maka Player akan bergerak\n  ke Kanan sebanyak 5 langkah\n\n- Undo\n  Terdapat tombol Undo jika \n  Anda klik maka akan kembali\n  ke posisi sebelumnya\n\n- Restart\n  Mengembalikan posisi Player \n  ke tempat awal\n\n- Cheat\n  Dapat digunakan saat menggunakan\n  Adventure\n");
+        tentangTextArea.setText("- How To Move\n  Untuk arah menggunakan \n  statment dibawah ini:\n  R\t= Right\n  L \t= Left\n  U \t= Up\n  D\t= Down\n\n  Untuk banyak langkah\n  menggunakan angka\n  sesuai kebutuhan\n  Contoh : R 5\n  Maka Player akan bergerak\n  ke Kanan sebanyak 5 langkah\n\n- Undo\n  Terdapat tombol Undo jika \n  Anda klik maka akan kembali\n  ke posisi sebelumnya\n\n- Restart\n  Mengembalikan posisi Player \n  ke tempat awal\n\n- Cheat\n  Dapat digunakan saat \n  menggunakan Adventure\n");
 
         tutupButton.setText("Tutup");
         tutupButton.addActionListener(new java.awt.event.ActionListener() {
@@ -85,11 +85,15 @@ public class MazeGame extends javax.swing.JFrame {
         AboutDialogLayout.setHorizontalGroup(
             AboutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AboutDialogLayout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addGroup(AboutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(tentangLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tutupButton)
-                    .addComponent(tentangTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(AboutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AboutDialogLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(AboutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(tentangLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tutupButton)))
+                    .addGroup(AboutDialogLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tentangTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         AboutDialogLayout.setVerticalGroup(
@@ -174,14 +178,6 @@ public class MazeGame extends javax.swing.JFrame {
         });
         adventureMenuItem.add(openMenuItem);
 
-        howToplayMenu.setText("About");
-        howToplayMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                howToplayMenuActionPerformed(evt);
-            }
-        });
-        adventureMenuItem.add(howToplayMenu);
-
         AdventureMenu.setText("Adventure");
         AdventureMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,6 +185,14 @@ public class MazeGame extends javax.swing.JFrame {
             }
         });
         adventureMenuItem.add(AdventureMenu);
+
+        howToplayMenu.setText("About");
+        howToplayMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                howToplayMenuActionPerformed(evt);
+            }
+        });
+        adventureMenuItem.add(howToplayMenu);
 
         exitMenuItem.setText("Exit");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -350,7 +354,7 @@ public class MazeGame extends javax.swing.JFrame {
         }
     }
     private void howToplayMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howToplayMenuActionPerformed
-        AboutDialog.setSize(213, 400);
+        AboutDialog.setSize(250, 400);
         AboutDialog.setVisible(true);
     }//GEN-LAST:event_howToplayMenuActionPerformed
 

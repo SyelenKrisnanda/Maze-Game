@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -37,6 +38,7 @@ public class Tempat extends JPanel {
     private ArrayList wall = new ArrayList();
     private ArrayList<Sel> map = new ArrayList();
     private ArrayList<String> undo = new ArrayList<>();
+    private ArrayList<String> save = new ArrayList<>();
 
     private String isi;
 
@@ -176,6 +178,7 @@ public class Tempat extends JPanel {
             JOptionPane.showMessageDialog(null, "Jumlah kata lebih dari 2");
         } else if (in.length == 2) {
             undo.add(input);
+            save.add(input);
             if (in[0].equalsIgnoreCase("l")) {
                 for (int i = 0; i < Integer.parseInt(String.valueOf(in[1])); i++) {
                     if (!cekBatasWall(player, "l")) {
