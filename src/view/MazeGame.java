@@ -19,15 +19,7 @@ public class MazeGame extends javax.swing.JFrame {
     Tempat peta;
     File file;
     int level = 1;//Menentukan jumlah Level
-    boolean bantu = false;//Untuk cheatButton
-
-    String[] cheat1 = {"r 3", "d 3", "r 2", "d 1"};
-    String[] cheat2 = {"r 1", "d 3", "r 2", "d 1", "r 2"};
-    String[] cheat3 = {"u 1", "l 2", "u 3", "l 3"};
-    //Cheat Pada Adventure
-
-    ArrayList<String> cheat = new ArrayList<>();
-    //Untuk menyimpan cheat
+    boolean bantu = false;//Untuk Button
 
     public MazeGame() {
         initComponents();
@@ -47,17 +39,18 @@ public class MazeGame extends javax.swing.JFrame {
         tentangLabel = new javax.swing.JLabel();
         tentangTextArea = new java.awt.TextArea();
         tutupButton = new javax.swing.JButton();
-        selPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         perintahText = new javax.swing.JTextField();
         okButton = new javax.swing.JButton();
         undoButton = new javax.swing.JButton();
         restartButton = new javax.swing.JButton();
         cheatButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        selPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        adventureMenuItem = new javax.swing.JMenu();
+        menuBar = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
-        AdventureMenu = new javax.swing.JMenuItem();
         howToplayMenu = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
 
@@ -110,21 +103,6 @@ public class MazeGame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        selPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        selPanel.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
-        selPanel.setPreferredSize(new java.awt.Dimension(500, 300));
-
-        javax.swing.GroupLayout selPanelLayout = new javax.swing.GroupLayout(selPanel);
-        selPanel.setLayout(selPanelLayout);
-        selPanelLayout.setHorizontalGroup(
-            selPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 569, Short.MAX_VALUE)
-        );
-        selPanelLayout.setVerticalGroup(
-            selPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 338, Short.MAX_VALUE)
-        );
-
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Perintah");
 
@@ -135,6 +113,7 @@ public class MazeGame extends javax.swing.JFrame {
         });
 
         okButton.setText("OK");
+        okButton.setEnabled(bantu);
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
@@ -142,6 +121,7 @@ public class MazeGame extends javax.swing.JFrame {
         });
 
         undoButton.setText("Undo");
+        undoButton.setEnabled(bantu);
         undoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 undoButtonActionPerformed(evt);
@@ -149,6 +129,7 @@ public class MazeGame extends javax.swing.JFrame {
         });
 
         restartButton.setText("Restart");
+        restartButton.setEnabled(bantu);
         restartButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 restartButtonActionPerformed(evt);
@@ -163,10 +144,39 @@ public class MazeGame extends javax.swing.JFrame {
             }
         });
 
-        adventureMenuItem.setText("File");
-        adventureMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adventureMenuItemActionPerformed(evt);
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Load");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        selPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        selPanel.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
+        selPanel.setPreferredSize(new java.awt.Dimension(500, 300));
+
+        javax.swing.GroupLayout selPanelLayout = new javax.swing.GroupLayout(selPanel);
+        selPanel.setLayout(selPanelLayout);
+        selPanelLayout.setHorizontalGroup(
+            selPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 549, Short.MAX_VALUE)
+        );
+        selPanelLayout.setVerticalGroup(
+            selPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 354, Short.MAX_VALUE)
+        );
+
+        menuBar.setText("File");
+        menuBar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBarActionPerformed(evt);
             }
         });
 
@@ -176,15 +186,7 @@ public class MazeGame extends javax.swing.JFrame {
                 openMenuItemActionPerformed(evt);
             }
         });
-        adventureMenuItem.add(openMenuItem);
-
-        AdventureMenu.setText("Adventure");
-        AdventureMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AdventureMenuActionPerformed(evt);
-            }
-        });
-        adventureMenuItem.add(AdventureMenu);
+        menuBar.add(openMenuItem);
 
         howToplayMenu.setText("About");
         howToplayMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -192,7 +194,7 @@ public class MazeGame extends javax.swing.JFrame {
                 howToplayMenuActionPerformed(evt);
             }
         });
-        adventureMenuItem.add(howToplayMenu);
+        menuBar.add(howToplayMenu);
 
         exitMenuItem.setText("Exit");
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -200,9 +202,9 @@ public class MazeGame extends javax.swing.JFrame {
                 exitMenuItemActionPerformed(evt);
             }
         });
-        adventureMenuItem.add(exitMenuItem);
+        menuBar.add(exitMenuItem);
 
-        jMenuBar1.add(adventureMenuItem);
+        jMenuBar1.add(menuBar);
 
         setJMenuBar(jMenuBar1);
 
@@ -211,38 +213,55 @@ public class MazeGame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(perintahText, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(okButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(undoButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(restartButton)
-                .addGap(18, 18, 18)
-                .addComponent(cheatButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(selPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
+                .addGap(103, 103, 103)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(undoButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(restartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cheatButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(perintahText, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(131, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(selPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(selPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(378, 378, 378)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(perintahText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(okButton)
+                    .addComponent(okButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(undoButton)
                     .addComponent(restartButton)
-                    .addComponent(cheatButton))
-                .addContainerGap())
+                    .addComponent(cheatButton)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(8, 8, 8))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(selPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(83, Short.MAX_VALUE)))
         );
 
-        setSize(new java.awt.Dimension(585, 472));
+        setSize(new java.awt.Dimension(585, 508));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -262,7 +281,11 @@ public class MazeGame extends javax.swing.JFrame {
             int x = (lebar - peta.getWidth()) / 2;
             int y = (tinggi - peta.getHeight()) / 2;
             peta.setLocation(x, y);
-
+            bantu = true;
+            cheatButton.setEnabled(bantu);
+            okButton.setEnabled(bantu);
+            undoButton.setEnabled(bantu);
+            restartButton.setEnabled(bantu);
         }
     }//GEN-LAST:event_openMenuItemActionPerformed
 
@@ -270,7 +293,7 @@ public class MazeGame extends javax.swing.JFrame {
         try {
             peta.Gerak(perintahText.getText());
             perintahText.setText("");
-            selesaiPeta();
+            isCompleted();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Baca Peta Terlebih Dahulu !", "Peringatan", 0);
         }
@@ -288,45 +311,10 @@ public class MazeGame extends javax.swing.JFrame {
     private void perintahTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perintahTextActionPerformed
         peta.Gerak(perintahText.getText());
         perintahText.setText("");
-        selesaiPeta();
+        isCompleted();
     }//GEN-LAST:event_perintahTextActionPerformed
 
-    private void peta2() {
-
-        selPanel.removeAll();
-        cheat.clear();
-        peta = new Tempat(new File("Peta1.txt"));
-        loadcheat(cheat2);
-        selPanel.add(peta);
-        peta.setSize(peta.getLebar() + 50, peta.getTinggi() + 50);
-        int lebar = selPanel.getWidth();
-        int tinggi = selPanel.getHeight();
-        int x = (lebar - peta.getWidth()) / 2;
-        int y = (tinggi - peta.getHeight()) / 2;
-        peta.setLocation(x, y);
-    }
-
-    private void peta3() {
-        selPanel.removeAll();
-        cheat.clear();
-        peta = new Tempat(new File("Peta2.txt"));
-        loadcheat(cheat3);
-        selPanel.add(peta);
-        peta.setSize(peta.getLebar() + 50, peta.getTinggi() + 50);
-        //setelah diset panel sel, kita letakkan posisi peta Mazegame
-        int lebar = selPanel.getWidth();
-        int tinggi = selPanel.getHeight();
-        //mendapatkan titik koordinat x,y
-        int x = (lebar - peta.getWidth()) / 2;
-        int y = (tinggi - peta.getHeight()) / 2;
-        peta.setLocation(x, y);
-    }
-
-    public void loadcheat(String[] cheata) {
-        cheat.addAll(Arrays.asList(cheata));
-    }
-
-    private void selesaiPeta() {
+    private void isCompleted() {
         if (peta.isComplete()) {
             JOptionPane.showMessageDialog(null, "Selamat Anda Berhasil Menyelesaikan\nGame Maze Game ini");
             selPanel.removeAll();
@@ -334,53 +322,10 @@ public class MazeGame extends javax.swing.JFrame {
         }
     }
 
-    private void selesaiLevel() {
-        if (peta.isComplete()) {
-            switch (level) {
-                case 1:
-                    cheat.clear();
-                    JOptionPane.showMessageDialog(null, "Level 1 Selesai");
-                    peta.hapus();
-                    selPanel.removeAll();
-                    peta2();
-                    JOptionPane.showMessageDialog(null, "Level 2");
-                    level++;
-                    break;
-                case 2:
-                    JOptionPane.showMessageDialog(null, "Level  2 Selesai");
-                    peta.hapus();
-                    selPanel.removeAll();
-                    peta3();
-                    JOptionPane.showMessageDialog(null, "Level 3");
-                    level++;
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Tamat\nTerima Kasih Telah mencoba\n^.^");
-                    selPanel.removeAll();
-                    System.exit(0);
-            }
-        }
-    }
     private void howToplayMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howToplayMenuActionPerformed
         AboutDialog.setSize(250, 400);
         AboutDialog.setVisible(true);
     }//GEN-LAST:event_howToplayMenuActionPerformed
-
-    private void AdventureMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdventureMenuActionPerformed
-        JOptionPane.showMessageDialog(null, "Jika Anda membuka peta ini maka \nanda akan melewati 3 rintangan");
-        bantu = true;
-        loadcheat(cheat1);
-        cheatButton.setEnabled(bantu);
-        peta = new Tempat(new File("Peta.txt"));
-        selPanel.add(peta);
-        peta.setSize(peta.getLebar() + 50, peta.getTinggi() + 50);
-        int lebar = selPanel.getWidth();
-        int tinggi = selPanel.getHeight();
-        int x = (lebar - peta.getWidth()) / 2;
-        int y = (tinggi - peta.getHeight()) / 2;
-        peta.setLocation(x, y);
-        JOptionPane.showMessageDialog(null, "Level 1");
-    }//GEN-LAST:event_AdventureMenuActionPerformed
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         System.exit(0);
@@ -390,16 +335,29 @@ public class MazeGame extends javax.swing.JFrame {
         AboutDialog.dispose();
     }//GEN-LAST:event_tutupButtonActionPerformed
 
-    private void adventureMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adventureMenuItemActionPerformed
+    private void menuBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBarActionPerformed
 
-    }//GEN-LAST:event_adventureMenuItemActionPerformed
+    }//GEN-LAST:event_menuBarActionPerformed
 
     private void cheatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cheatButtonActionPerformed
-        for (int i = 0; i < cheat.size(); i++) {
-            peta.Gerak(cheat.get(i));
-            selesaiLevel();
-        }
+
+        System.out.println(peta.getFinish().getPosisiX());
+        int a = peta.getFinish().getPosisiX() - 50;
+        System.out.println(peta.getFinish().getPosisiY());
+        int b = peta.getFinish().getPosisiY() - 50;
+        peta.getPlayer().Gerak(a, b);
+        repaint();
+        isCompleted();
     }//GEN-LAST:event_cheatButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        peta.saveKonfigurasi();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        peta.LoadKonfigurasi();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -421,14 +379,15 @@ public class MazeGame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog AboutDialog;
-    private javax.swing.JMenuItem AdventureMenu;
-    private javax.swing.JMenu adventureMenuItem;
     private javax.swing.JButton cheatButton;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenuItem howToplayMenu;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu menuBar;
     private javax.swing.JButton okButton;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JTextField perintahText;

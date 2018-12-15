@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -301,6 +302,48 @@ public class Tempat extends JPanel {
         undo.clear();
         wall.clear();
         getMap().clear();
+    }
+
+    public void saveKonfigurasi() {
+        try {
+            try (FileOutputStream fos = new FileOutputStream(new File("simpankoordinat.txt"))) {
+                for (int i = 0; i < undo.size(); i++) {
+                    String data = undo.get(i) + ",";
+                    fos.write(data.getBytes());
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void LoadKonfigurasi() {
+        try {
+
+            FileInputStream fis = new FileInputStream(new File("simpankoordinat.txt"));
+            String baca = "";
+            int dataInt;
+            undo.clear();
+            while ((dataInt = fis.read()) != -1) {
+                if ((char) dataInt == ',') {
+                    undo.add(baca);
+                    baca = "";
+                } else {
+                    baca += (char) dataInt;
+                }
+            }
+
+            for (int i = 0; i < undo.size(); i++) {
+                Gerak(undo.get(i));
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public boolean isComplete() {
