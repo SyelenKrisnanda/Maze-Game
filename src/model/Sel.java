@@ -5,9 +5,12 @@
  */
 package model;
 
-import java.awt.Color;
 import java.awt.Image;
 
+/**
+ *
+ * @author Project_MazeGame_175314080_175314103
+ */
 public class Sel {
 
     private int posisiY;
@@ -15,28 +18,16 @@ public class Sel {
     private int lebar = 25;
     private int tinggi = 25;
     private int Jarak = 50;
-    private Image image;
     private char nilai;
 
-    private Color warna;
+    private Image image;
 
     public Sel() {
     }
 
-   
     public Sel(int baris, int kolom) {
         this.posisiY = baris;
         this.posisiX = kolom;
-    }
-
-
-    public Sel(int baris, int kolom, int lebar, int tinggi, char nilai, Color warna) {
-        this.posisiY = baris;
-        this.posisiX = kolom;
-        this.lebar = lebar;
-        this.tinggi = tinggi;
-        this.nilai = nilai;
-        this.warna = warna;
     }
 
     public int getPosisiY() {
@@ -61,14 +52,6 @@ public class Sel {
 
     public void setNilai(char nilai) {
         this.nilai = nilai;
-    }
-
-    public Color getWarna() {
-        return warna;
-    }
-
-    public void setWarna(Color warna) {
-        this.warna = warna;
     }
 
     public int getLebar() {
