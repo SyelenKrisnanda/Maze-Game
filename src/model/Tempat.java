@@ -10,7 +10,6 @@ import java.awt.Graphics;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -47,9 +46,6 @@ public class Tempat extends JPanel {
     private Wall dinding;
 
     private File alamat;
-
-    public static int batasKanan;
-    public static int batasBawah;
 
     public Tempat() {
     }
@@ -96,14 +92,6 @@ public class Tempat extends JPanel {
 
     public Player getPlayer() {
         return player;
-    }
-
-    public static int getBatasKanan() {
-        return batasKanan;
-    }
-
-    public static int getBatasBawah() {
-        return batasBawah;
     }
 
     public Finish getFinish() {

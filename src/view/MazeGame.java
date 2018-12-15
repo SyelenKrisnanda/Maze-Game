@@ -270,7 +270,7 @@ public class MazeGame extends javax.swing.JFrame {
         try {
             peta.Gerak(perintahText.getText());
             perintahText.setText("");
-            peta.isComplete();
+            selesaiPeta();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Baca Peta Terlebih Dahulu !", "Peringatan", 0);
         }
@@ -288,7 +288,7 @@ public class MazeGame extends javax.swing.JFrame {
     private void perintahTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perintahTextActionPerformed
         peta.Gerak(perintahText.getText());
         perintahText.setText("");
-        peta.isComplete();
+        selesaiPeta();
     }//GEN-LAST:event_perintahTextActionPerformed
 
     private void peta2() {
@@ -326,7 +326,15 @@ public class MazeGame extends javax.swing.JFrame {
         cheat.addAll(Arrays.asList(cheata));
     }
 
-    private void selesai() {
+    private void selesaiPeta() {
+        if (peta.isComplete()) {
+            JOptionPane.showMessageDialog(null, "Selamat Anda Berhasil Menyelesaikan\nGame Maze Game ini");
+            selPanel.removeAll();
+            System.exit(0);
+        }
+    }
+
+    private void selesaiLevel() {
         if (peta.isComplete()) {
             switch (level) {
                 case 1:
@@ -389,7 +397,7 @@ public class MazeGame extends javax.swing.JFrame {
     private void cheatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cheatButtonActionPerformed
         for (int i = 0; i < cheat.size(); i++) {
             peta.Gerak(cheat.get(i));
-            selesai();
+            selesaiLevel();
         }
     }//GEN-LAST:event_cheatButtonActionPerformed
 
