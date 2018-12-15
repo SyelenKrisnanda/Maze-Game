@@ -19,9 +19,16 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author user only
+ * @author Project_MazeGame_175314080_175314103
  */
 public class Tempat extends JPanel {
+
+    /**
+     * @param map the map to set
+     */
+    public void setMap(ArrayList<Sel> map) {
+        this.map = map;
+    }
 
     private int tinggi = 0;
     private int lebar = 0;
@@ -154,11 +161,11 @@ public class Tempat extends JPanel {
         super.paintComponent(g);
         g.setColor(new Color(255, 255, 255));
         g.fillRect(0, 0, this.getLebar(), this.getTinggi());
-        map.addAll(wall);
-        map.add(finish);
-        map.add(player);
-        for (int i = 0; i < map.size(); i++) {
-            Sel item = (Sel) map.get(i);
+        getMap().addAll(wall);
+        getMap().add(finish);
+        getMap().add(player);
+        for (int i = 0; i < getMap().size(); i++) {
+            Sel item = (Sel) getMap().get(i);
             g.drawImage(item.getImage(), item.getPosisiY(), item.getPosisiX(), this);
         }
     }
@@ -201,7 +208,9 @@ public class Tempat extends JPanel {
                 JOptionPane.showConfirmDialog(null, "Kata Asing");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Tidak Memenuhi Perintah !\nSilahkan Baca About dahulu", "Warning", 1);
+            JOptionPane.showMessageDialog(null,
+                    "Tidak Memenuhi Perintah !\nSilahkan Baca About dahulu",
+                    "Warning", 1);
         }
     }
 
@@ -245,8 +254,8 @@ public class Tempat extends JPanel {
 
     public void undo() {
         try {
-            int xc = undo.size() - 1;
-            String input = undo.get(xc);
+            int nilaiUndo = undo.size() - 1;
+            String input = undo.get(nilaiUndo);
             String[] ulang = input.split(" ");
             if (ulang[0].equalsIgnoreCase("l")) {
                 for (int i = 0; i < Integer.parseInt(String.valueOf(ulang[1])); i++) {
@@ -255,7 +264,8 @@ public class Tempat extends JPanel {
                         repaint();
                     }
                 }
-                undo.remove(xc);
+                undo.remove(nilaiUndo);
+
             } else if (ulang[0].equalsIgnoreCase("r")) {
                 for (int i = 0; i < Integer.parseInt(String.valueOf(ulang[1])); i++) {
                     if (!cekBatasWall(player, "l")) {
@@ -263,7 +273,7 @@ public class Tempat extends JPanel {
                         repaint();
                     }
                 }
-                undo.remove(xc);
+                undo.remove(nilaiUndo);
 
             } else if (ulang[0].equalsIgnoreCase("u")) {
                 for (int i = 0; i < Integer.parseInt(String.valueOf(ulang[1])); i++) {
@@ -272,7 +282,8 @@ public class Tempat extends JPanel {
                         repaint();
                     }
                 }
-                undo.remove(xc);
+                undo.remove(nilaiUndo);
+
             } else if (ulang[0].equalsIgnoreCase("d")) {
                 for (int i = 0; i < Integer.parseInt(String.valueOf(ulang[1])); i++) {
                     if (!cekBatasWall(player, "u")) {
@@ -280,29 +291,29 @@ public class Tempat extends JPanel {
                         repaint();
                     }
                 }
-                undo.remove(xc);
+                undo.remove(nilaiUndo);
             }
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Sudah Kembali Tempat Semula");
         }
-
     }
 
-    public void restart() {
+    public void restartPlayer() {
         undo.clear();
         wall.clear();
-        map.clear();
+        getMap().clear();
         bacaKonfigurasi(alamat);
         repaint();
     }
 
-    public boolean isComplete() {
-        if (player.getPosisiX() == finish.getPosisiX() && player.getPosisiY() == finish.getPosisiY()) {
-            undo.clear();
-            wall.clear();
-            map.clear();
-            return true;
-        }
-        return false;
+    public void hapus() {
+        undo.clear();
+        wall.clear();
+        getMap().clear();
     }
+
+    public boolean isComplete() {
+        return player.getPosisiX() == finish.getPosisiX() && player.getPosisiY() == finish.getPosisiY();
+    }
+
 }
