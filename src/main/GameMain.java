@@ -5,15 +5,16 @@
  */
 package main;
 
-import view.Maze;
+import view.MazeGame;
 
 /**
  *
- * @author user only
+ * @author Project_MazeGame_175314080_175314103
  */
 public class GameMain {
+
     public static void main(String[] args) {
-        Maze game = new Maze();
+        MazeGame game = new MazeGame();
         game.setVisible(true);
     }
 }
