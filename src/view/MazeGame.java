@@ -20,15 +20,14 @@ public class MazeGame extends javax.swing.JFrame {
     File file;
     int level = 1;//Menentukan jumlah Level
     boolean bantu = false;//Untuk cheatButton
-    
+
     String[] cheat1 = {"r 3", "d 3", "r 2", "d 1"};
     String[] cheat2 = {"r 1", "d 3", "r 2", "d 1", "r 2"};
     String[] cheat3 = {"u 1", "l 2", "u 3", "l 3"};
     //Cheat Pada Adventure
-    
+
     ArrayList<String> cheat = new ArrayList<>();
     //Untuk menyimpan cheat
-
 
     public MazeGame() {
         initComponents();
@@ -251,7 +250,7 @@ public class MazeGame extends javax.swing.JFrame {
             file = jFileChooser1.getSelectedFile();
             peta = new Tempat(file);
             selPanel.add(peta);
-            peta.setSize(peta.getLebar(), peta.getTinggi());
+            peta.setSize(peta.getLebar() + 50, peta.getTinggi() + 50);
             //setelah diset panel sel, kita letakkan posisi peta Mazegame
             int lebar = selPanel.getWidth();
             int tinggi = selPanel.getHeight();
@@ -267,7 +266,7 @@ public class MazeGame extends javax.swing.JFrame {
         try {
             peta.Gerak(perintahText.getText());
             perintahText.setText("");
-            selesai();
+            peta.isComplete();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Baca Peta Terlebih Dahulu !", "Peringatan", 0);
         }
@@ -285,13 +284,14 @@ public class MazeGame extends javax.swing.JFrame {
     private void perintahTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perintahTextActionPerformed
         peta.Gerak(perintahText.getText());
         perintahText.setText("");
-        selesai();
+        peta.isComplete();
     }//GEN-LAST:event_perintahTextActionPerformed
 
     private void peta2() {
-        peta = new Tempat(new File("Peta1.txt"));
+
         selPanel.removeAll();
         cheat.clear();
+        peta = new Tempat(new File("Peta1.txt"));
         loadcheat(cheat2);
         selPanel.add(peta);
         peta.setSize(peta.getLebar() + 50, peta.getTinggi() + 50);
@@ -303,9 +303,9 @@ public class MazeGame extends javax.swing.JFrame {
     }
 
     private void peta3() {
-        peta = new Tempat(new File("Peta2.txt"));
         selPanel.removeAll();
         cheat.clear();
+        peta = new Tempat(new File("Peta2.txt"));
         loadcheat(cheat3);
         selPanel.add(peta);
         peta.setSize(peta.getLebar() + 50, peta.getTinggi() + 50);
@@ -328,6 +328,7 @@ public class MazeGame extends javax.swing.JFrame {
                 case 1:
                     cheat.clear();
                     JOptionPane.showMessageDialog(null, "Level 1 Selesai");
+                    peta.hapus();
                     selPanel.removeAll();
                     peta2();
                     JOptionPane.showMessageDialog(null, "Level 2");
@@ -335,6 +336,7 @@ public class MazeGame extends javax.swing.JFrame {
                     break;
                 case 2:
                     JOptionPane.showMessageDialog(null, "Level  2 Selesai");
+                    peta.hapus();
                     selPanel.removeAll();
                     peta3();
                     JOptionPane.showMessageDialog(null, "Level 3");
@@ -395,8 +397,8 @@ public class MazeGame extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | InstantiationException | 
-                IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException
+                | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MazeGame.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
