@@ -334,6 +334,7 @@ public class MazeGame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuBarActionPerformed
 
     private void cheatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cheatButtonActionPerformed
+        peta.restartPlayer();
         int a = peta.getFinish().getPosisiX() - 50;
         int b = peta.getFinish().getPosisiY() - 50;
         peta.getPlayer().Gerak(a, b);
@@ -342,7 +343,7 @@ public class MazeGame extends javax.swing.JFrame {
     }//GEN-LAST:event_cheatButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        peta.saveKonfigurasiPeta();        
+        peta.saveKonfigurasiPeta();
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
