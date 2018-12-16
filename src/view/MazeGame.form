@@ -18,34 +18,27 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="tentangLabel" alignment="2" min="-2" pref="169" max="-2" attributes="0"/>
-                              <Component id="tutupButton" alignment="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="tentangTextArea" min="-2" pref="193" max="-2" attributes="0"/>
-                      </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="42" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="tentangLabel" alignment="2" min="-2" pref="169" max="-2" attributes="0"/>
+                      <Component id="tentangTextArea" alignment="2" min="-2" pref="216" max="-2" attributes="0"/>
+                      <Component id="tutupButton" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="35" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="tentangLabel" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   <Component id="tentangTextArea" min="-2" pref="271" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tutupButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -66,7 +59,7 @@
               <Color id="Hand Cursor"/>
             </Property>
             <Property name="editable" type="boolean" value="false"/>
-            <Property name="text" type="java.lang.String" value="- How To Move&#xa;  Untuk arah menggunakan &#xa;  statment dibawah ini:&#xa;  R&#x9;= Right&#xa;  L &#x9;= Left&#xa;  U &#x9;= Up&#xa;  D&#x9;= Down&#xa;&#xa;  Untuk banyak langkah&#xa;  menggunakan angka&#xa;  sesuai kebutuhan&#xa;  Contoh : R 5&#xa;  Maka Player akan bergerak&#xa;  ke Kanan sebanyak 5 langkah&#xa;&#xa;- Undo&#xa;  Terdapat tombol Undo jika &#xa;  Anda klik maka akan kembali&#xa;  ke posisi sebelumnya&#xa;&#xa;- Restart&#xa;  Mengembalikan posisi Player &#xa;  ke tempat awal&#xa;&#xa;- Cheat&#xa;  Dapat digunakan saat &#xa;  menggunakan Adventure&#xa;"/>
+            <Property name="text" type="java.lang.String" value="- How To Move&#xa;  S (spasi) N&#xa;  Keterangan:&#xa;  S = Statment&#xa;  N = Angka&#xa;  &#xa;  Daftar Statment:&#xa;  R&#x9;= Right&#xa;  L &#x9;= Left&#xa;  U &#x9;= Up&#xa;  D&#x9;= Down&#xa;  &#xa;  Contoh : R 5&#xa;  Maka Player akan bergerak&#xa;  ke Kanan sebanyak 5 langkah&#xa;&#xa;- Undo&#xa;  Terdapat tombol Undo jika &#xa;  Anda klik maka akan kembali&#xa;  ke posisi sebelumnya&#xa;&#xa;- Restart&#xa;  Mengembalikan posisi Player &#xa;  ke tempat semula&#xa;&#xa;- Cheat&#xa;  Dapat digunakan saat &#xa;  sudah Open Map&#xa;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="tutupButton">

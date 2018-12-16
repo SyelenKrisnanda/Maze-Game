@@ -64,7 +64,7 @@ public class MazeGame extends javax.swing.JFrame {
 
         tentangTextArea.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tentangTextArea.setEditable(false);
-        tentangTextArea.setText("- How To Move\n  Untuk arah menggunakan \n  statment dibawah ini:\n  R\t= Right\n  L \t= Left\n  U \t= Up\n  D\t= Down\n\n  Untuk banyak langkah\n  menggunakan angka\n  sesuai kebutuhan\n  Contoh : R 5\n  Maka Player akan bergerak\n  ke Kanan sebanyak 5 langkah\n\n- Undo\n  Terdapat tombol Undo jika \n  Anda klik maka akan kembali\n  ke posisi sebelumnya\n\n- Restart\n  Mengembalikan posisi Player \n  ke tempat awal\n\n- Cheat\n  Dapat digunakan saat \n  menggunakan Adventure\n");
+        tentangTextArea.setText("- How To Move\n  S (spasi) N\n  Keterangan:\n  S = Statment\n  N = Angka\n  \n  Daftar Statment:\n  R\t= Right\n  L \t= Left\n  U \t= Up\n  D\t= Down\n  \n  Contoh : R 5\n  Maka Player akan bergerak\n  ke Kanan sebanyak 5 langkah\n\n- Undo\n  Terdapat tombol Undo jika \n  Anda klik maka akan kembali\n  ke posisi sebelumnya\n\n- Restart\n  Mengembalikan posisi Player \n  ke tempat semula\n\n- Cheat\n  Dapat digunakan saat \n  sudah Open Map\n");
 
         tutupButton.setText("Tutup");
         tutupButton.addActionListener(new java.awt.event.ActionListener() {
@@ -77,28 +77,24 @@ public class MazeGame extends javax.swing.JFrame {
         AboutDialog.getContentPane().setLayout(AboutDialogLayout);
         AboutDialogLayout.setHorizontalGroup(
             AboutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AboutDialogLayout.createSequentialGroup()
-                .addGroup(AboutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AboutDialogLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(AboutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(tentangLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tutupButton)))
-                    .addGroup(AboutDialogLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tentangTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AboutDialogLayout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addGroup(AboutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(tentangLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tentangTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tutupButton))
+                .addGap(41, 41, 41))
         );
         AboutDialogLayout.setVerticalGroup(
             AboutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AboutDialogLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AboutDialogLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tentangLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(tentangTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tutupButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -320,11 +316,12 @@ public class MazeGame extends javax.swing.JFrame {
     }//GEN-LAST:event_perintahTextActionPerformed
 
     private void howToplayMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_howToplayMenuActionPerformed
-        AboutDialog.setSize(250, 400);
+        AboutDialog.setSize(300, 400);
         AboutDialog.setVisible(true);
     }//GEN-LAST:event_howToplayMenuActionPerformed
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+        JOptionPane.showMessageDialog(null, "Terima Kasih");
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
@@ -345,11 +342,11 @@ public class MazeGame extends javax.swing.JFrame {
     }//GEN-LAST:event_cheatButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        peta.saveKonfigurasi();
+        peta.saveKonfigurasiPeta();        
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
-        peta.LoadKonfigurasi();
+        peta.LoadKonfigurasiPeta();
         peta.getSave().clear();
     }//GEN-LAST:event_loadButtonActionPerformed
 
@@ -373,7 +370,7 @@ public class MazeGame extends javax.swing.JFrame {
 
     private void isCompleted() {
         if (peta.isComplete()) {
-            JOptionPane.showMessageDialog(null, "Selamat Anda Berhasil Menyelesaikan\nGame Maze Game ini");
+            JOptionPane.showMessageDialog(null, "Selamat Anda Berhasil Menyelesaikan\nPermainan Ini");
             selPanel.removeAll();
             System.exit(0);
         }

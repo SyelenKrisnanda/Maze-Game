@@ -15,10 +15,7 @@ public class Sel {
 
     private int posisiY;
     private int posisiX;
-    private int lebar = 25;
-    private int tinggi = 25;
     private int Jarak = 50;
-    private char nilai;
 
     private Image image;
 
@@ -44,30 +41,6 @@ public class Sel {
 
     public void setPosisiX(int posisiX) {
         this.posisiX = posisiX;
-    }
-
-    public char getNilai() {
-        return nilai;
-    }
-
-    public void setNilai(char nilai) {
-        this.nilai = nilai;
-    }
-
-    public int getLebar() {
-        return lebar;
-    }
-
-    public void setLebar(int lebar) {
-        this.lebar = lebar;
-    }
-
-    public int getTinggi() {
-        return tinggi;
-    }
-
-    public void setTinggi(int tinggi) {
-        this.tinggi = tinggi;
     }
 
     public Image getImage() {

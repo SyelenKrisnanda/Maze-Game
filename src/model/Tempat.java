@@ -24,13 +24,6 @@ import javax.swing.JPanel;
  */
 public class Tempat extends JPanel {
 
-    /**
-     * @param map the map to set
-     */
-    public void setMap(ArrayList<Sel> map) {
-        this.map = map;
-    }
-
     private int tinggi = 0;
     private int lebar = 0;
     private int jarak = 50;
@@ -52,7 +45,7 @@ public class Tempat extends JPanel {
     }
 
     public Tempat(File file) {
-        bacaKonfigurasi(file);
+        bacaPeta(file);
     }
 
     public int getTinggi() {
@@ -99,7 +92,19 @@ public class Tempat extends JPanel {
         return finish;
     }
 
-    public void bacaKonfigurasi(File file) {
+    public void setMap(ArrayList<Sel> map) {
+        this.map = map;
+    }
+
+    public boolean isComplete() {
+        return player.getPosisiX() == finish.getPosisiX() && player.getPosisiY() == finish.getPosisiY();
+    }
+
+    public ArrayList<String> getSave() {
+        return save;
+    }
+
+    public void bacaPeta(File file) {
         try {
             alamat = file;
             FileInputStream input = new FileInputStream(file);
@@ -293,7 +298,7 @@ public class Tempat extends JPanel {
         undo.clear();
         wall.clear();
         getMap().clear();
-        bacaKonfigurasi(alamat);
+        bacaPeta(alamat);
         repaint();
     }
 
@@ -303,13 +308,14 @@ public class Tempat extends JPanel {
         getMap().clear();
     }
 
-    public void saveKonfigurasi() {
+    public void saveKonfigurasiPeta() {
         try {
             try (FileOutputStream fos = new FileOutputStream(new File("simpankoordinat.txt"))) {
                 for (int i = 0; i < undo.size(); i++) {
                     String data = undo.get(i) + ",";
                     fos.write(data.getBytes());
                 }
+                JOptionPane.showMessageDialog(null, "Data Tersimpan");
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
@@ -318,7 +324,7 @@ public class Tempat extends JPanel {
         }
     }
 
-    public void LoadKonfigurasi() {
+    public void LoadKonfigurasiPeta() {
         try {
             undo.clear();
             save.clear();
@@ -344,14 +350,6 @@ public class Tempat extends JPanel {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
-
-    public boolean isComplete() {
-        return player.getPosisiX() == finish.getPosisiX() && player.getPosisiY() == finish.getPosisiY();
-    }
-
-    public ArrayList<String> getSave() {
-        return save;
     }
 
 }
