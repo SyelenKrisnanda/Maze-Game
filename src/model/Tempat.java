@@ -167,7 +167,6 @@ public class Tempat extends JPanel {
             JOptionPane.showMessageDialog(null, "Jumlah kata lebih dari 2");
         } else if (in.length == 2) {
             undo.add(input);
-            save.add(input);
             if (in[0].equalsIgnoreCase("l")) {
                 for (int i = 0; i < Integer.parseInt(String.valueOf(in[1])); i++) {
                     if (!cekBatasWall(player, "l")) {
@@ -321,22 +320,23 @@ public class Tempat extends JPanel {
 
     public void LoadKonfigurasi() {
         try {
-
-            FileInputStream fis = new FileInputStream(new File("simpankoordinat.txt"));
-            String baca = "";
-            int dataInt;
             undo.clear();
+            save.clear();
+            String hasilBaca = "";
+            FileInputStream fis = new FileInputStream(new File("simpankoordinat.txt"));
+            int dataInt;
             while ((dataInt = fis.read()) != -1) {
                 if ((char) dataInt == ',') {
-                    undo.add(baca);
-                    baca = "";
+                    this.save.add(hasilBaca);
+                    hasilBaca = "";
                 } else {
-                    baca += (char) dataInt;
+                    hasilBaca = hasilBaca + (char) dataInt;
                 }
             }
-
-            for (int i = 0; i < undo.size(); i++) {
-                Gerak(undo.get(i));
+            Tempat tempat = new Tempat(alamat);
+            tempat.save = this.save;
+            for (int i = 0; i < tempat.save.size(); i++) {
+                Gerak(tempat.save.get(i));
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
@@ -348,6 +348,10 @@ public class Tempat extends JPanel {
 
     public boolean isComplete() {
         return player.getPosisiX() == finish.getPosisiX() && player.getPosisiY() == finish.getPosisiY();
+    }
+
+    public ArrayList<String> getSave() {
+        return save;
     }
 
 }
