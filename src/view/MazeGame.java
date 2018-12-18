@@ -18,7 +18,6 @@ public class MazeGame extends javax.swing.JFrame {
 
     Tempat peta;
     File file;
-    int maxLoad = 1;//Menentukan jumlah Level
     boolean bantu = false;//Untuk Button
 
     public MazeGame() {

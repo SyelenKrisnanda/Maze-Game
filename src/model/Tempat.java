@@ -33,8 +33,6 @@ public class Tempat extends JPanel {
     private ArrayList<String> undo = new ArrayList<>();
     private ArrayList<String> save = new ArrayList<>();
 
-    private String isi;
-
     private Player player;
     private Finish finish;
     private Wall dinding;
@@ -62,14 +60,6 @@ public class Tempat extends JPanel {
 
     public void setLebar(int lebar) {
         this.lebar = lebar;
-    }
-
-    public String getIsi() {
-        return isi;
-    }
-
-    public void setIsi(String isi) {
-        this.isi = isi;
     }
 
     public ArrayList getWall() {
@@ -108,7 +98,6 @@ public class Tempat extends JPanel {
         try {
             alamat = file;
             FileInputStream input = new FileInputStream(file);
-            String hasilBaca = "";
             int data;
             int posisiY = 0;
             int posisiX = 0;
@@ -142,8 +131,6 @@ public class Tempat extends JPanel {
                 }
                 tinggi = posisiY;
             }
-
-            this.setIsi(hasilBaca);
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
